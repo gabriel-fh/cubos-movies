@@ -1,5 +1,6 @@
 import { Link } from "react-router"
 import { IMG_BASE_URL } from "../../utils/constants"
+import Rating from "../Rating";
 
 const MovieCard = ({ movie, genresResponse }: { movie: Movie, genresResponse: GenreResponse | undefined }) => {
 
@@ -19,10 +20,11 @@ const MovieCard = ({ movie, genresResponse }: { movie: Movie, genresResponse: Ge
           alt={movie.title}
           className="aspect-[2/3] rounded-sm"
         />
+        <Rating voteAverage={movie.vote_average} />
         <figcaption className="absolute bottom-0 font-semibold p-3">
           <h3 className="text-white line-clamp-2">{movie.title}</h3>
           {genres && genres?.length > 0 && (
-            <span className="hidden group-hover:block text-mauve-11 text-xs font-medium">
+            <span className="hidden group-hover:block max-h-8 text-mauve-11 text-xs font-medium line-clamp-1">
               {genres.join(', ')}
             </span>
           )}
