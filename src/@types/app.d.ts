@@ -19,3 +19,12 @@ type Movie = {
   vote_average: number;
   vote_count: number;
 };
+
+type Genre = {
+  id: number;
+  name: string;
+}
+
+type GenreResponse = {
+  genres: Genre[];
+}

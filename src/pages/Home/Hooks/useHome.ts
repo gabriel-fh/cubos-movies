@@ -1,7 +1,7 @@
 import { useFetchMovies } from "../../../hooks/useFetchMovies";
 
 export const useHome = () => {
-  const { data, isLoading, isError } = useFetchMovies();
+  const { data, isLoading } = useFetchMovies();
 
   return {
     data,
