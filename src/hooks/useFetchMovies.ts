@@ -1,5 +1,5 @@
+import api from "@/config/api";
 import { useQuery } from "@tanstack/react-query";
-import api from "../config/api";
 
 const fetchData = async (): Promise<PaginetedResponse<Movie>> => {
   const response = await api.get<PaginetedResponse<Movie>>("discover/movie");

@@ -1,6 +1,6 @@
-import Button from "../Button"
-import CubosSvg from "../Icon/Icon"
 import { Icon } from "@iconify/react";
+import CubosSvg from "../Icon/Icon";
+import Button from "../Button";
 const Header = () => {
   return (
     <header className="flex items-center justify-between p-4 border-b-2 border-b-mauve-a6 m-0">

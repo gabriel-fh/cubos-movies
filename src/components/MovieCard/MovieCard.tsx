@@ -1,5 +1,5 @@
+import { IMG_BASE_URL } from "@/utils/constants";
 import { Link } from "react-router"
-import { IMG_BASE_URL } from "../../utils/constants"
 import Rating from "../Rating";
 
 const MovieCard = ({ movie, genresResponse }: { movie: Movie, genresResponse: GenreResponse | undefined }) => {

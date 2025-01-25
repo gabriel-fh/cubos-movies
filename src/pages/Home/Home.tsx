@@ -1,8 +1,8 @@
+import MovieCard from "@/components/MovieCard";
+import { useFetchGenres } from "@/hooks/useFetchGenres";
+import { useHome } from "./Hooks/useHome";
+import SearchAndFilter from "./components/SearchAndFilter";
 
-import MovieCard from '../../components/MovieCard';
-import { useFetchGenres } from '../../hooks/useFetchGenres';
-import SearchAndFilter from './components/SearchAndFilter';
-import { useHome } from './Hooks/useHome';
 const Home = () => {
 
   const { data, isLoading } = useHome();
