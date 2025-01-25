@@ -9,7 +9,7 @@ const Button = ({ children, variant }: ButtonProps) => {
   const secondary = ''
 
   return (
-    <button  className={`${variant === 'primary' ? primary : secondary} py-2 px-4 bg-purple-2/82 rounded-xs`}>
+    <button  className={`${variant === 'primary' ? primary : secondary} py-3 px-4 bg-purple-a2 bg-clip-padding backdrop-filter backdrop-blur-xs bg-opacity-10 rounded-sm `}>
       {children}
     </button>
   )

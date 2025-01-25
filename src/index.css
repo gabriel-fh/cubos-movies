@@ -14,10 +14,32 @@
 }
 
 @theme {
+  --color-purple-1: var(--purple-1);
   --color-purple-2: var(--purple-2);
+  --color-purple-3: var(--purple-3);
+  --color-purple-4: var(--purple-4);
+  --color-purple-5: var(--purple-5);
+  --color-purple-6 : var(--purple-6);
+  --color-purple-7 : var(--purple-7);
+  --color-purple-8 : var(--purple-8);
+  --color-purple-9 : var(--purple-9);
+  --color-purple-10 : var(--purple-10);
+  --color-purple-11 : var(--purple-11);
+  --color-purple-12 : var(--purple-12);
+
+  --color-purple-a2: var(--purple-a2);
 
   --color-mauve-1: var(--mauve-1);
+  --color-mauve-2: var(--mauve-2);
+  --color-mauve-3: var(--mauve-3);
+  --color-mauve-4: var(--mauve-4);
+  --color-mauve-5: var(--mauve-5);
   --color-mauve-6 : var(--mauve-6);
+  --color-mauve-7 : var(--mauve-7);
+  --color-mauve-8 : var(--mauve-8);
+  --color-mauve-9 : var(--mauve-9);
+  --color-mauve-10 : var(--mauve-10);
+  --color-mauve-11 : var(--mauve-11);
   --color-mauve-12 : var(--mauve-12);
 
   --color-mauve-a6 : var(--mauve-a6);
