@@ -12,3 +12,13 @@
 * {
   font-family: "Montserrat", serif;
 }
+
+@theme {
+  --color-purple-2: var(--purple-2);
+
+  --color-mauve-1: var(--mauve-1);
+  --color-mauve-6 : var(--mauve-6);
+  --color-mauve-12 : var(--mauve-12);
+
+  --color-mauve-a6 : var(--mauve-a6);
+}
