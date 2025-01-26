@@ -12,7 +12,7 @@ const Home = () => {
   const [inputValue, setInputValue] = useState<string>(query || '');
   const { data, isLoading } = useHome();
   const { data: genresResponse } = useFetchGenres();
-  const { data: searchResults } = useFetchSearch(inputValue);
+  const { data: searchResults, isLoading: searchIsLoading } = useFetchSearch(inputValue);
 
 
   useEffect(() => {
@@ -26,10 +26,6 @@ const Home = () => {
     setSearchParams({ query: e.target.value });
   };
 
-  if (isLoading) {
-    return <h1>Carregando...</h1>
-  }
-
   return (
     <main className="w-full min-h-screen">
       <div className="absolute -top-32 -z-2 w-full min-h-screen bg-[url(backgropund-krists-luhaers-unsplash.png)]
@@ -38,19 +34,24 @@ const Home = () => {
       "/>
       <SearchAndFilter inputValue={inputValue} onChange={onChange} />
       <section className="w-full min-h-[calc(100vh-10vh)] grid grid-cols-[repeat(2,1fr)] gap-2 bg-mauve-3 p-4">
-        {inputValue.length > 0 ? (
-          searchResults?.results && searchResults.results.map((movie) => {
-            return (
+        {isLoading || searchIsLoading ? (
+          Array.from({ length: 10 }).map((_, idx) => (
+            <div key={idx} className="aspect-[2/3] animate-pulse bg-mauve-5 rounded-sm"></div>
+          ))
+        ) : inputValue.length > 0 ? (
+          searchResults?.results && searchResults.results.length > 0 ? (
+            searchResults.results.map((movie) => (
               <MovieCard key={movie.id} movie={movie} genresResponse={genresResponse} />
-            );
-          })
+            ))
+          ) : (
+            <span className="text-white text-6xl">Nenhum resultado encontrado</span>
+          )
         ) : (
-          data?.results && data.results.map((movie) => {
-            return (
-              <MovieCard key={movie.id} movie={movie} genresResponse={genresResponse} />
-            );
-          })
+          data?.results && data.results.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} genresResponse={genresResponse} />
+          ))
         )}
+
       </section>
     </main>
   )
