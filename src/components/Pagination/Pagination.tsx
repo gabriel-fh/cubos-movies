@@ -27,12 +27,14 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
 
   const getVisiblePages = () => {
     const pages = [];
-    if (active <= 3) {
-      for (let i = 1; i <= 3; i++) {
+    let minValue = 3;
+    if (active <= minValue) {
+      if(minValue > total) minValue = total;
+      for (let i = 1; i <= minValue; i++) {
         pages.push(i);
       }
       if (total > 4) pages.push('...');
-      pages.push(total);
+      if (total > 3) pages.push(total);
     } else {
       pages.push(1);
       if (active > 3) pages.push('...');
@@ -53,7 +55,7 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="p-4 flex items-center flex-wrap gap-2 bg-mauve-1">
+      <div className="p-4 flex items-center flex-wrap gap-2">
         <Button
           variant="primary"
           className="px-2 py-2 flex items-center gap-2"

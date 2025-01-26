@@ -19,7 +19,7 @@ export const useFetchSearch = (searchValue: string, page = 1) => {
     queryFn: fetchData,
     queryKey: ["search", searchValue, page],
     staleTime: 1000 * 60 * 10,
-    enabled: searchValue.length > 0,
+    enabled: searchValue.length > 0 ,
   });
 
   return query;

@@ -10,31 +10,47 @@ export const useHome = () => {
   const queryPage = searchParams.get("page") || "1";
 
   const [page, setPage] = useState<number>(parseInt(queryPage));
-  const [inputValue, setInputValue] = useState<string>(query || '');
+  const [inputValue, setInputValue] = useState<string>(query || "");
 
-  const { data: discoverData, isLoading: discoverLoading } = useFetchMovies(page); 
+  const { data: discoverData, isLoading: discoverLoading } = useFetchMovies(page);
   const { data: genresData } = useFetchGenres();
   const { data: searchData, isLoading: searchLoading } = useFetchSearch(inputValue, page);
 
-  const data = inputValue.length > 0 ? searchData : discoverData;
-  const isLoading = inputValue.length > 0 ? searchLoading : discoverLoading;
-
+  const data = inputValue.trim().length > 0 ? searchData : discoverData;
+  const isLoading = inputValue.trim().length > 0 ? searchLoading : discoverLoading;
 
   const changePage = (page: number) => {
     setPage(page);
-    setSearchParams({ page: page.toString() });
-  }
+    setSearchParams((prevParams) => {
+      prevParams.set("page", page.toString());
+      return prevParams;
+    });
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    setSearchParams({ query: e.target.value });
+    const newQuery = e.target.value;
+    setInputValue(newQuery);
+  
+    setSearchParams((prevParams) => {
+      const updatedParams = new URLSearchParams(prevParams);
+      if(newQuery.trim().length > 0) {
+        updatedParams.set("query", newQuery);
+      } else {
+        updatedParams.delete("query");
+      }
+      updatedParams.delete("page");
+      return updatedParams;
+    });
+
+    setPage(1);
   };
 
   useEffect(() => {
     scrollTo({
       top: 0,
-      behavior: 'smooth',
-    })
+      behavior: "smooth",
+    });
+    console.log("page", page);
   }, [page]);
 
   return {

@@ -14,7 +14,7 @@ const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
             type="text"
             value={inputValue}
             placeholder='Pesquise por filmes'
-            className="w-full p-3 rounded-sm h-full bg-mauve-2 border-2 border-mauve-6 text-mauve-11 font-semibold focus:border-purple-9 focus:outline-none focus:caret-purple-9"
+            className="w-full p-3 pr-10 rounded-sm h-full bg-mauve-2 border-2 border-mauve-6 text-mauve-11 font-semibold focus:border-purple-9 focus:outline-none focus:caret-purple-9"
             onChange={onChange}
           />
           {inputValue.length < 1 ? (

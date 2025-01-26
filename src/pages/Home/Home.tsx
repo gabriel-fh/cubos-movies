@@ -16,7 +16,7 @@ const Home = () => {
       <SearchAndFilter inputValue={inputValue} onChange={onChange} />
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve-3 p-4 
         ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :
-          'grid grid-cols-[repeat(2,1fr)] gap-2'}`}>
+          'grid grid-cols-[repeat(2,1fr)] place-content-start gap-2'}`}>
 
         {isLoading ? (
           <Skeleton />
@@ -29,7 +29,7 @@ const Home = () => {
         )}
 
       </section>
-      {data && data.total_pages > 0 && <Pagination totalPages={data.total_pages} active={page} setActive={changePage} />}
+      {data && data.total_pages > 1 && <Pagination totalPages={data.total_pages} active={page} setActive={changePage} />}
     </main>
   );
 
