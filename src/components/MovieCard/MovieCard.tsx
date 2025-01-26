@@ -11,8 +11,6 @@ const MovieCard = ({ movie, genresResponse }: { movie: Movie, genresResponse: Ge
     return acc;
   }, [] as string[]);
 
-
-  console.log(genres);
   return (
     <Link to={`/movie/${movie.id}`}>
       <figure className="relative rounded-sm overflow-hidden group before:w-full before:h-full before:absolute before:top-0 before:left-0 before:bg-gradient-to-b before:transparent before:to-black before:via-black/10">
