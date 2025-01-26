@@ -3,9 +3,14 @@ import { Link } from "react-router"
 import Rating from "../Rating";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-const MovieCard = ({ movie, genresResponse }: { movie: Movie, genresResponse: GenreResponse | undefined }) => {
+type MovieCardProps = {
+  movie: Movie;
+  genresData: GenreResponse | undefined;
+}
 
-  const genres = genresResponse?.genres.reduce((acc, genre) => {
+const MovieCard = ({ movie, genresData }: MovieCardProps) => {
+
+  const genres = genresData?.genres.reduce((acc, genre) => {
     if (movie.genre_ids.includes(genre.id)) {
       acc.push(genre.name);
     }

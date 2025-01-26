@@ -1,24 +1,25 @@
 import api from "@/config/api";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
-const fetchData = async ({ queryKey }: QueryFunctionContext<[string, string]>) => {
+const fetchData = async ({ queryKey }: QueryFunctionContext<[string, string, number]>) => {
 
-  const [_, searchValue] = queryKey;
+  const [_, searchValue, page] = queryKey;
 
   const response = await api.get<PaginetedResponse<Movie>>("search/movie", {
     params: {
       query: searchValue,
+      page: page <= 0 ? 1 : page,
     },
   });
   return response.data;
 };
 
-export const useFetchSearch = (searchValue: string) => {
+export const useFetchSearch = (searchValue: string, page = 1) => {
   const query = useQuery({
     queryFn: fetchData,
-    queryKey: ["search", searchValue],
+    queryKey: ["search", searchValue, page],
     staleTime: 1000 * 60 * 10,
-    enabled: searchValue.length > 0,
+    enabled: searchValue.length > 0 ,
   });
 
   return query;
