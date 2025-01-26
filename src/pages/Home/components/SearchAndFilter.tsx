@@ -12,6 +12,7 @@ const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
         <div className='w-full relative'>
           <input
             type="text"
+            value={inputValue}
             placeholder='Pesquise por filmes'
             className="w-full p-3 rounded-sm h-full bg-mauve-2 border-2 border-mauve-6 text-mauve-11 font-semibold focus:border-purple-9 focus:outline-none focus:caret-purple-9"
             onChange={onChange}

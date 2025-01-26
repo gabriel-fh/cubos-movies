@@ -2,21 +2,29 @@ import MovieCard from "@/components/MovieCard";
 import { useFetchGenres } from "@/hooks/useFetchGenres";
 import { useHome } from "./Hooks/useHome";
 import SearchAndFilter from "./components/SearchAndFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetchSearch } from "@/hooks/useFetchSearch";
+import { useSearchParams } from "react-router";
 
 const Home = () => {
-  const [inputValue, setInputValue] = useState<string>("");
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query");
+  const [inputValue, setInputValue] = useState<string>(query || '');
   const { data, isLoading } = useHome();
   const { data: genresResponse } = useFetchGenres();
   const { data: searchResults } = useFetchSearch(inputValue);
 
+
+  useEffect(() => {
+    if (!query || query.trim() === "") {
+      setSearchParams({});
+    }
+  }, [query]);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-  }
-
-  console.log(searchResults);
+    setSearchParams({ query: e.target.value });
+  };
 
   if (isLoading) {
     return <h1>Carregando...</h1>
@@ -30,7 +38,7 @@ const Home = () => {
       "/>
       <SearchAndFilter inputValue={inputValue} onChange={onChange} />
       <section className="w-full min-h-[calc(100vh-10vh)] grid grid-cols-[repeat(2,1fr)] gap-2 bg-mauve-3 p-4">
-        {inputValue.length > 0 ? ( 
+        {inputValue.length > 0 ? (
           searchResults?.results && searchResults.results.map((movie) => {
             return (
               <MovieCard key={movie.id} movie={movie} genresResponse={genresResponse} />
