@@ -27,7 +27,10 @@
   --color-purple-11: var(--purple-11);
   --color-purple-12: var(--purple-12);
 
+  --color-purple-a1: var(--purple-a1);
   --color-purple-a2: var(--purple-a2);
+  --color-purple-a3: var(--purple-a3);
+  --color-purple-a12: var(--purple-a12);
 
   --color-mauve-1: var(--mauve-1);
   --color-mauve-2: var(--mauve-2);
@@ -42,5 +45,6 @@
   --color-mauve-11: var(--mauve-11);
   --color-mauve-12: var(--mauve-12);
 
+  --color-mauve-a3: var(--mauve-a3);
   --color-mauve-a6: var(--mauve-a6);
 }

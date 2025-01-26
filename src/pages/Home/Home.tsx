@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useFetchSearch } from "@/hooks/useFetchSearch";
 import { useSearchParams } from "react-router";
 import SearchNotFound from "./components/SearchNotFound";
+import Pagination from "@/components/Pagination";
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <main className="w-full min-h-screen">
+    <main className="w-full min-h-screen bg-gradient-to-b from-mauve-1 to-mauve-1 via-mauve-1/85">
       <div className="absolute -top-32 -z-2 w-full min-h-screen bg-[url(backgropund-krists-luhaers-unsplash.png)]
       bg-no-repeat bg-cover bg-center bg-mauve-1 before:w-full before:h-full before:absolute before:top-0 before:left-0 
       before:bg-gradient-to-b before:from-mauve-1 before:to-mauve-1 before:via-mauve-1/85"
@@ -54,6 +55,7 @@ const Home = () => {
         )}
 
       </section>
+      <Pagination />
     </main>
   );
 

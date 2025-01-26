@@ -9,7 +9,7 @@ const Header = () => {
         <h1 className="text-mauve-12 font-bold">Movies</h1>
       </div>
       <Button>
-        <Icon icon="eva:sun-fill" className="text-white text-2xl" />
+        <Icon icon="eva:sun-fill" className="text-mauve-12 text-2xl" />
       </Button>
     </header>
   )

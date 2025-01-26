@@ -25,7 +25,7 @@ const MovieCard = ({ movie, genresResponse }: { movie: Movie, genresResponse: Ge
         )}
         <Rating voteAverage={movie.vote_average} />
         <figcaption className="absolute bottom-0 left-0 font-semibold p-3">
-          <h3 className="text-white line-clamp-2">{movie.title}</h3>
+          <h3 className="text-mauve-12 line-clamp-2">{movie.title}</h3>
           {genres && genres?.length > 0 && (
             <span className="hidden group-hover:block max-h-8 text-mauve-11 text-xs font-medium line-clamp-1">
               {genres.join(', ')}
