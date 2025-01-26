@@ -1,39 +1,11 @@
 import MovieCard from "@/components/MovieCard";
-import { useFetchGenres } from "@/hooks/useFetchGenres";
 import SearchAndFilter from "./components/SearchAndFilter";
-import { useEffect, useState } from "react";
-import { useFetchSearch } from "@/hooks/useFetchSearch";
-import { useSearchParams } from "react-router";
 import SearchNotFound from "./components/SearchNotFound";
 import Pagination from "@/components/Pagination";
-import { useFetchMovies } from "@/hooks/useFetchMovies";
+import { useHome } from "./Hooks/useHome";
 
 const Home = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("query");
-  const queryPage = searchParams.get("page") || "1";
-  const [page, setPage] = useState<number>(parseInt(queryPage));
-  const [inputValue, setInputValue] = useState<string>(query || '');
-  const { data, isLoading } = useFetchMovies(page); 
-  const { data: genresResponse } = useFetchGenres();
-  const { data: searchResults, isLoading: searchIsLoading } = useFetchSearch(inputValue);
-
-  const changePage = (page: number) => {
-    setPage(page);
-    setSearchParams({ page: page.toString() });
-  }
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    setSearchParams({ query: e.target.value });
-  };
-
-  useEffect(() => {
-    scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }, [page]);
+  const { data, isLoading, genresData, page, inputValue, changePage, onChange } = useHome();
 
   return (
     <main className="w-full min-h-screen bg-gradient-to-b from-mauve-1 to-mauve-1 via-mauve-1/85">
@@ -43,21 +15,16 @@ const Home = () => {
       />
       <SearchAndFilter inputValue={inputValue} onChange={onChange} />
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve-3 p-4 
-        ${inputValue.length > 0 && searchResults?.results?.length === 0 ? 'flex items-start justify-center' :
+        ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :
           'grid grid-cols-[repeat(2,1fr)] gap-2'}`}>
 
-        {isLoading || searchIsLoading ? (
+        {isLoading ? (
           <Skeleton />
-        ) : inputValue.length > 0 ? (searchResults?.results?.length ? (
-          searchResults.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} genresResponse={genresResponse} />
-          ))
-        ) : (
+        ) : inputValue.length > 0 && data?.results?.length === 0 ? (
           <SearchNotFound searchValue={inputValue} />
-        )
         ) : (
           data?.results?.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} genresResponse={genresResponse} />
+            <MovieCard key={movie.id} movie={movie} genresData={genresData} />
           ))
         )}
 
