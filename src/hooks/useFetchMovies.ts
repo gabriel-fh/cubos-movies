@@ -1,15 +1,21 @@
 import api from "@/config/api";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
-const fetchData = async (): Promise<PaginetedResponse<Movie>> => {
-  const response = await api.get<PaginetedResponse<Movie>>("discover/movie");
+const fetchData = async ({ queryKey }: QueryFunctionContext<[string, number]>): Promise<PaginetedResponse<Movie>> => {
+  const [_, page] = queryKey;
+
+  const params = {
+    page: page <= 0 ? 1 : page,
+  };
+
+  const response = await api.get<PaginetedResponse<Movie>>("discover/movie", { params });
   return response.data;
 };
 
-export const useFetchMovies = () => {
+export const useFetchMovies = (page = 1) => {
   const query = useQuery({
     queryFn: fetchData,
-    queryKey: ["discover"],
+    queryKey: ["discover", page],
     staleTime: 1000 * 60 * 10,
   });
 

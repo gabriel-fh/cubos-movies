@@ -31,7 +31,8 @@ const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
           )}
         </div>
         <Button
-          className="px-4 bg-purple-a2 bg-clip-padding backdrop-filter backdrop-blur-xs bg-opacity-10"
+          className="px-4 bg-clip-padding backdrop-filter backdrop-blur-xs bg-opacity-10"
+          variant='secondary'
         >
           <Icon icon={'mage:filter'} className='text-mauve-12 rotate-90 text-2xl' />
         </Button>

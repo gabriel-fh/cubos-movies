@@ -8,7 +8,7 @@ const Header = () => {
         <CubosSvg fill="#EEEEF0" className="w-32" />
         <h1 className="text-mauve-12 font-bold">Movies</h1>
       </div>
-      <Button>
+      <Button variant="secondary">
         <Icon icon="eva:sun-fill" className="text-mauve-12 text-2xl" />
       </Button>
     </header>

@@ -1,58 +1,93 @@
-import React from 'react'
-import Button from '../Button'
-import { IconButton } from "@material-tailwind/react";
+import React from 'react';
+import Button from '../Button';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-const Pagination = () => {
-  const [active, setActive] = React.useState(1);
- 
-  const getItemProps = (index: number) =>
-    ({
-      variant: active === index ? "filled" : "text",
-      color: "gray",
-      onClick: () => setActive(index),
-      className: "rounded-full",
-    } as any);
- 
+type PaginationProps = {
+  totalPages: number;
+  active: number;
+  setActive: (page: number) => void;
+};
+
+const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
+  const total = totalPages > 500 ? 500 : totalPages;
+
+  const getItemProps = (idx: number) => ({
+    disabled: active === idx,
+    onClick: () => setActive(idx),
+  });
+
   const next = () => {
-    if (active === 5) return;
- 
+    if (active === total) return;
     setActive(active + 1);
   };
- 
+
   const prev = () => {
     if (active === 1) return;
- 
     setActive(active - 1);
   };
- 
+
+  const getVisiblePages = () => {
+    const pages = [];
+    if (active <= 3) {
+      for (let i = 1; i <= 3; i++) {
+        pages.push(i);
+      }
+      if (total > 4) pages.push('...');
+      pages.push(total);
+    } else {
+      pages.push(1);
+      if (active > 3) pages.push('...');
+      
+      if (active < total - 2) {
+        pages.push(active);
+        pages.push('...');
+        pages.push(total);
+      } else {
+        for (let i = total - 2; i <= total; i++) {
+          pages.push(i);
+        }
+      }
+    }
+
+    return pages;
+  };
+
   return (
-    <div className="flex items-center gap-4">
-      <Button
-        // variant="text"
-        className="flex items-center gap-2 rounded-full"
-        // onClick={prev}
-        disabled={active === 1}
-      >
-        <Icon icon={'lets-icons:expand-left'} className='text-mauve-12 text-2xl'/>
-      </Button>
-      <div className="flex items-center gap-2">
-        <IconButton {...getItemProps(1)}>1</IconButton>
-        <IconButton {...getItemProps(2)}>2</IconButton>
-        <IconButton {...getItemProps(3)}>3</IconButton>
-        <IconButton {...getItemProps(4)}>4</IconButton>
-        <IconButton {...getItemProps(5)}>5</IconButton>
+    <div className="w-full flex items-center justify-center">
+      <div className="p-4 flex items-center flex-wrap gap-2 bg-mauve-1">
+        <Button
+          variant="primary"
+          className="px-2 py-2 flex items-center gap-2"
+          onClick={prev}
+          disabled={active === 1}
+        >
+          <Icon icon={'lets-icons:expand-left'} className="text-mauve-12 text-xl" />
+        </Button>
+
+        <div className="flex items-center gap-2">
+          {getVisiblePages().map((page, idx) => (
+            <Button
+              key={idx}
+              variant='primary'
+              className="px-3 py-2"
+              {...(typeof page === 'number' ? getItemProps(page) : {})}
+            >
+              {page}
+            </Button>
+          ))}
+        </div>
+
+        <Button
+          variant="primary"
+          className="px-2 py-2 flex items-center gap-2"
+          onClick={next}
+          disabled={active === total}
+        >
+          <Icon icon={'lets-icons:expand-right'} className="text-mauve-12 text-xl" />
+        </Button>
       </div>
-      <Button
-        // variant="text"
-        className="flex items-center gap-2 rounded-full"
-        onClick={next}
-        disabled={active === 5}
-      >
-        <Icon icon={'lets-icons:expand-right'} className='text-mauve-12 text-2xl'/>
-      </Button>
     </div>
   );
-}
+};
 
-export default Pagination
+export default Pagination;
