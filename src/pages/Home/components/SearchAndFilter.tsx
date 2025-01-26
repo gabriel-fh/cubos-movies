@@ -17,7 +17,18 @@ const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
             className="w-full p-3 rounded-sm h-full bg-mauve-2 border-2 border-mauve-6 text-mauve-11 font-semibold focus:border-purple-9 focus:outline-none focus:caret-purple-9"
             onChange={onChange}
           />
-          {inputValue.length < 1 && <Icon icon={'lets-icons:search-alt-fill'} className='absolute right-4 bottom-1/4 text-white text-2xl' />}
+          {inputValue.length < 1 ? (
+            <Icon
+              icon={'lets-icons:search-alt-fill'}
+              className='absolute right-4 bottom-1/4 text-white text-2xl'
+            />
+          ) : (
+            <button
+              onClick={() => onChange({ target: { value: '' } } as any)}
+              className='absolute right-4 bottom-1/4'>
+              <Icon icon={'ic:round-close'} className=" text-white text-2xl" />
+            </button>
+          )}
         </div>
         <Button>
           <Icon icon={'mage:filter'} className='text-white rotate-90 text-2xl' />
