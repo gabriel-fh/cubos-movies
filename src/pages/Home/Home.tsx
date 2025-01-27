@@ -36,7 +36,7 @@ const Home = () => {
 
 const Skeleton = () => (
   Array.from({ length: 10 }).map((_, idx) => (
-    <div key={idx} className="aspect-[2/3] animate-pulse bg-mauve-5 rounded-sm" />
+    <div key={idx} className="aspect-[2/3] animate-pulse bg-mauve5 rounded-[4px]" />
   ))
 );
 
