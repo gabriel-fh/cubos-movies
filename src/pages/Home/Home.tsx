@@ -13,7 +13,7 @@ const Home = () => {
       bg-no-repeat bg-cover bg-center bg-mauve-1 before:w-full before:h-full before:absolute before:top-0 before:left-0 
       before:bg-gradient-to-b before:from-mauve-1 before:to-mauve-1 before:via-mauve-1/85"
       />
-      <SearchAndFilter inputValue={inputValue} onChange={onChange} />
+      <SearchAndFilter inputValue={inputValue} onChange={onChange} genresData={genresData} />
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve-3 p-4 
         ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :
           'grid grid-cols-[repeat(2,1fr)] place-content-start gap-2'}`}>

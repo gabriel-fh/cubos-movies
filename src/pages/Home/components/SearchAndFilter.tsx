@@ -1,13 +1,25 @@
 import Button from "@/components/Button";
 import { Icon } from "@iconify/react";
+import React from "react";
+import Filters from "./Filters";
+import { Drawer } from 'vaul';
 
 type SearchAndFilterProps = {
   inputValue: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  genresData: GenreResponse | undefined;
 }
-const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
+const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
+  const ref = React.useRef<HTMLButtonElement>(null)
+
+  const handleClick = () => {
+    if(ref.current) {
+      ref.current.click()
+    }
+  }
+
   return (
-    <div>
+    <Drawer.Root>
       <div className='w-full flex items-center gap-2 justify-between p-4'>
         <div className='w-full relative'>
           <input
@@ -30,14 +42,17 @@ const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
             </button>
           )}
         </div>
-        <Button
-          className="px-4 bg-clip-padding backdrop-filter backdrop-blur-xs bg-opacity-10"
-          variant='secondary'
+        <Button 
+          variant="secondary" 
+          className="px-4 bg-clip-padding backdrop-filter backdrop-blur-xs bg-opacity-1"
+          onClick={handleClick}
         >
           <Icon icon={'mage:filter'} className='text-mauve-12 rotate-90 text-2xl' />
         </Button>
+        <Drawer.Trigger ref={ref} />
       </div>
-    </div>
+      <Filters genresData={genresData} />
+    </Drawer.Root>
   )
 }
 

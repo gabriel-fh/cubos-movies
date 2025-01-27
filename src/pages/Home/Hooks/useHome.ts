@@ -50,7 +50,6 @@ export const useHome = () => {
       top: 0,
       behavior: "smooth",
     });
-    console.log("page", page);
   }, [page]);
 
   return {
