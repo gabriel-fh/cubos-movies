@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button as BtnMtw, ButtonProps as BtnMtwProps } from '@material-tailwind/react'
 type ButtonProps = {
   children: React.ReactNode;
   className?: string;
@@ -10,14 +9,14 @@ const Button = ({ children, variant = 'primary', className, ...props }: ButtonPr
   const secondary = 'bg-purplea2 hover:bg-purplea3 active:bg-purplea1 disabled:bg-mauvea3'
 
   return (
-    <BtnMtw
-      className={`cursor-pointer outline-none px-5 rounded-[4px] opacity
-        ${variant === 'primary' ? primary : secondary} ${className}`
+    <button
+      className={`cursor-pointer outline-none px-5 py-3 !font-semibold text-white rounded-[4px] opacity
+        ${variant === 'primary' ? primary : secondary}  ${className}`
       }
       {...props}
     >
       {children}
-    </BtnMtw>
+    </button>
   )
 }
 

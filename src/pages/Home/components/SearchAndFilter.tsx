@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import { Icon } from "@iconify/react";
 import React from "react";
-import Filters from "./Filters";
+import Filters from "./FIlters";
 import { Drawer } from 'vaul';
 
 type SearchAndFilterProps = {
@@ -44,7 +44,7 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
         </div>
         <Button 
           variant="secondary" 
-          className="px-4 bg-clip-padding backdrop-filter backdrop-blur-[2px] bg-opacity-1"
+          className="!px-4 bg-clip-padding backdrop-filter backdrop-blur-[2px] bg-opacity-1"
           onClick={handleClick}
         >
           <Icon icon={'mage:filter'} className='text-mauve12 rotate-90 text-2xl' />
