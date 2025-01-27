@@ -4,13 +4,30 @@ import Button from '@/components/Button';
 import Ordenate from './Ordenate';
 import Genrelist from './Genrelist';
 import Releases from './Releases';
+import { useFilter } from '@/contexts/Filters';
+import { useEffect, useRef } from 'react';
 
 type FiltersProps = {
   genresData: GenreResponse | undefined;
 }
 
 const Filters = ({ genresData }: FiltersProps) => {
+  const {isSaved, setIsSaved} = useFilter()
+  const ref = useRef<HTMLButtonElement>(null);
 
+  useEffect(() => {
+    if(isSaved) {
+      setIsSaved(false)
+    }
+  }, []);
+
+  const handleClick = () => {
+    setIsSaved(true)
+    if(ref.current) {
+      ref.current.click()
+    }
+  }
+  
   return (
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-black/40" />
@@ -19,10 +36,10 @@ const Filters = ({ genresData }: FiltersProps) => {
           <div aria-hidden className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-mauve6 mb-4" />
           <div className="flex flex-col gap-5 max-w-md mx-auto">
             <Drawer.Title className="font-semibold text-mauve12 text-base">Encontre o que você procura</Drawer.Title>
-            <Ordenate/>
-            {genresData?.genres && <Genrelist genres={genresData.genres}/>}
-            <Releases/>
-            
+            <Ordenate />
+            {genresData?.genres && <Genrelist genres={genresData.genres} />}
+            <Releases />
+
             <div>
               <h3 className='text-mauve12 font-semibold mb-2'>Pontuação média</h3>
               <Slider
@@ -35,7 +52,8 @@ const Filters = ({ genresData }: FiltersProps) => {
               />
             </div>
             <div className="w-full">
-              <Button className="w-full py-3">Salvar</Button>
+              <Button className="w-full py-3"onClick={handleClick}>Salvar</Button>
+              <Drawer.Close ref={ref} className="hidden" />
             </div>
           </div>
         </div>

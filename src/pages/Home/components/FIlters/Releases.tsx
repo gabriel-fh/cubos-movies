@@ -2,7 +2,7 @@ import DatePicker from '@/components/DatePicker'
 
 const Releases = () => {
   return (
-    <>
+    <div>
       <h3 className='text-mauve12 font-semibold mb-2'>Lançamentos</h3>
       <div className='flex flex-row gap-2'>
         <div className='w-1/2'>
@@ -14,7 +14,7 @@ const Releases = () => {
           <DatePicker />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

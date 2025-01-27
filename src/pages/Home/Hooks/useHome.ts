@@ -3,8 +3,10 @@ import { useFetchMovies } from "../../../hooks/useFetchMovies";
 import { useEffect, useState } from "react";
 import { useFetchGenres } from "@/hooks/useFetchGenres";
 import { useFetchSearch } from "@/hooks/useFetchSearch";
+import { useFilter } from "@/contexts/Filters";
 
 export const useHome = () => {
+  const { filters } = useFilter()
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
   const queryPage = searchParams.get("page") || "1";
@@ -12,12 +14,13 @@ export const useHome = () => {
   const [page, setPage] = useState<number>(parseInt(queryPage));
   const [inputValue, setInputValue] = useState<string>(query || "");
 
-  const { data: discoverData, isLoading: discoverLoading } = useFetchMovies(page);
+  const { data: discoverData, isLoading: discoverLoading } = useFetchMovies(page, filters);
   const { data: genresData } = useFetchGenres();
   const { data: searchData, isLoading: searchLoading } = useFetchSearch(inputValue, page);
 
   const data = inputValue.trim().length > 0 ? searchData : discoverData;
   const isLoading = inputValue.trim().length > 0 ? searchLoading : discoverLoading;
+
 
   const changePage = (page: number) => {
     setPage(page);
