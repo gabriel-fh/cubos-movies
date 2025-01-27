@@ -1,33 +1,38 @@
 import { Drawer } from 'vaul';
-import { Slider } from "@/components/ui/slider"
 import Button from '@/components/Button';
 import Ordenate from './Ordenate';
-import Genrelist from './Genrelist';
-import Releases from './Releases';
+import GenreList from './GenreList';
 import { useFilter } from '@/contexts/Filters';
 import { useEffect, useRef } from 'react';
+import VoteAverage from './VoteAverage';
+import Lang from './Lang';
 
 type FiltersProps = {
   genresData: GenreResponse | undefined;
 }
 
 const Filters = ({ genresData }: FiltersProps) => {
-  const {isSaved, setIsSaved} = useFilter()
+  const { isSaved, setIsSaved } = useFilter()
   const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if(isSaved) {
+    if (isSaved) {
       setIsSaved(false)
     }
   }, []);
 
-  const handleClick = () => {
-    setIsSaved(true)
-    if(ref.current) {
+  const close = () => {
+    if (ref.current) {
       ref.current.click()
     }
   }
-  
+
+  const handleClick = () => {
+    setIsSaved(true)
+    close() 
+  }
+
+
   return (
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-black/40" />
@@ -37,22 +42,12 @@ const Filters = ({ genresData }: FiltersProps) => {
           <div className="flex flex-col gap-5 max-w-md mx-auto">
             <Drawer.Title className="font-semibold text-mauve12 text-base">Encontre o que você procura</Drawer.Title>
             <Ordenate />
-            {genresData?.genres && <Genrelist genres={genresData.genres} />}
-            <Releases />
-
-            <div>
-              <h3 className='text-mauve12 font-semibold mb-2'>Pontuação média</h3>
-              <Slider
-                min={0}
-                max={200}
-                step={10}
-                defaultValue={[0, 200]}
-                minStepsBetweenThumbs={10}
-                className='bg-mauve2'
-              />
-            </div>
-            <div className="w-full">
-              <Button className="w-full py-3"onClick={handleClick}>Salvar</Button>
+            {genresData?.genres && <GenreList genres={genresData.genres} />}
+            <Lang/>
+            <VoteAverage/>
+            <div className="flex gap-4 w-full mt-4">
+              <Button className="w-full !py-2 !bg-mauve7" onClick={close}>Cancelar</Button>
+              <Button className="w-full !py-2"  onClick={handleClick}>Salvar</Button>
               <Drawer.Close ref={ref} className="hidden" />
             </div>
           </div>

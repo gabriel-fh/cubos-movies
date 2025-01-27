@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { useFilter } from '@/contexts/Filters'
 
-const Genrelist = ({ genres }: { genres: Genre[] }) => {
-  const { isSaved, setFilters } = useFilter()
-
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([])
+const GenreList = ({ genres }: { genres: Genre[] }) => {
+  const { isSaved, filters, setFilters } = useFilter()
+  const currentFilters = filters.with_genres ? filters.with_genres.split(',').map(item => parseInt(item)) : []
+  const [selectedGenres, setSelectedGenres] = useState<number[]>(currentFilters)
 
   const handleClick = (value: number) => {
     setSelectedGenres((prevSelected) => {
@@ -34,7 +34,7 @@ const Genrelist = ({ genres }: { genres: Genre[] }) => {
           <li key={genre.id}>
             <Badge
               variant="outline"
-              className={selectedGenres.includes(genre.id) ? 'bg-purple9 text-white' : 'bg-mauve2'}
+              className={`${selectedGenres.includes(genre.id) ? 'bg-purple9 text-white ' : 'bg-mauve2'} cursor-pointer !font-normal !hover:bg-red-500 `}
               onClick={() => handleClick(genre.id)}
             >
               {genre.name}
@@ -46,4 +46,4 @@ const Genrelist = ({ genres }: { genres: Genre[] }) => {
   )
 }
 
-export default Genrelist;
+export default GenreList;
