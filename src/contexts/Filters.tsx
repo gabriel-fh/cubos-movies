@@ -18,8 +18,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   const [filters, setFilters] = useState<Filter>({
     sort_by: 'popularity.desc',
     with_genres: '',
-    'release_date.gte': '',
-    'release_date.lte': '',
+    with_original_language: '',
   });
 
   return (

@@ -38,6 +38,7 @@ type Lang = {
 type Filter = {
   sort_by: string;
   with_genres: string;
+  with_original_language: string;
   // vote_average_gte: string;
   // vote_average_lte: string;
 }

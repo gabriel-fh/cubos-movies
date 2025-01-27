@@ -1,10 +1,12 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useFilter } from '@/contexts/Filters';
 import { useFetchLang } from '@/hooks/useFetchLang';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Lang = () => {
+  const { filters, isSaved, setFilters } = useFilter()
   const { data } = useFetchLang();
-  const [value, setValue] = useState<string>()
+  const [value, setValue] = useState<string>(filters.with_original_language || '');
 
   const handleValueChange = (value: string) => {
     setValue(value)
@@ -15,12 +17,21 @@ const Lang = () => {
     return language.of(langCode);
   };
 
+  useEffect(() => {
+    if (isSaved) {
+      setFilters(prev => ({
+        ...prev,
+        with_original_language: value
+      }))
+    }
+  }, [isSaved]);
+
   if (!data) return null;
 
   return (
     data && (
-      <div>  
-        <h3 className="text-mauve12 font-semibold">Idioma</h3>
+      <div>
+        <h3 className="text-mauve12 font-semibold">Idioma de origem</h3>
         <Select value={value} onValueChange={handleValueChange}>
           <SelectTrigger className="w-full bg-mauve2 mt-2 focus:outline-none focus:ring-1 focus:ring-purple9 focus:caret-purple9">
             <SelectValue placeholder={'Selecione um idioma'} className='selectPlaceholder' />
