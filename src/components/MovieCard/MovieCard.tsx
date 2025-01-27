@@ -19,7 +19,7 @@ const MovieCard = ({ movie, genresData }: MovieCardProps) => {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <figure className={`relative rounded-sm bg-mauve-1 overflow-hidden group before:w-full before:h-full before:absolute before:top-0 before:left-0 before:bg-gradient-to-b before:transparent before:to-black before:via-black/10 aspect-[2/3] ${!movie.poster_path && 'flex items-center justify-center'}`}>
+      <figure className={`relative rounded-[4px] bg-mauve-1 overflow-hidden group before:w-full before:h-full before:absolute before:top-0 before:left-0 before:transparent  before:bg-gradient-to-b before:from-transparent before:to-black before:via-transparent aspect-[2/3] ${!movie.poster_path && 'flex items-center justify-center'}`}>
         {movie.poster_path ? (
           <img src={IMG_BASE_URL + movie.poster_path}
             alt={movie.title}
@@ -30,9 +30,9 @@ const MovieCard = ({ movie, genresData }: MovieCardProps) => {
         )}
         <Rating voteAverage={movie.vote_average} />
         <figcaption className="absolute bottom-0 left-0 font-semibold p-3">
-          <h3 className="text-mauve-12 line-clamp-2">{movie.title}</h3>
+          <h3 className=" text-[15px] text-white line-clamp-2">{movie.title}</h3>
           {genres && genres?.length > 0 && (
-            <span className="hidden group-hover:block max-h-8 text-mauve-11 text-xs font-medium line-clamp-1">
+            <span className="hidden group-hover:block max-h-8 text-mauve11 text-xs font-medium line-clamp-1">
               {genres.join(', ')}
             </span>
           )}

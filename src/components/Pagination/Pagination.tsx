@@ -54,7 +54,7 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex items-center justify-center bg-mauve1">
       <div className="p-4 flex items-center flex-wrap gap-2">
         <Button
           variant="primary"

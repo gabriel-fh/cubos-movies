@@ -8,9 +8,9 @@ const Rating = ({ voteAverage }: {
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = `${(percentage / 100) * circumference} ${circumference}`;
   return (
-    <div className="hidden group-hover:block absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-filter backdrop-blur-xs bg-opacity-10">
+    <div className="hidden group-hover:block absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-filter backdrop-blur-[3px] bg-opacity-10">
       <svg
-        className="w-32"
+        className="w-28"
         viewBox={`0 0 ${size} ${size}`}
         xmlns="http://www.w3.org/2000/svg"
       >
