@@ -39,6 +39,6 @@ type Filter = {
   sort_by: string;
   with_genres: string;
   with_original_language: string;
-  // vote_average_gte: string;
-  // vote_average_lte: string;
+  'vote_average.gte'?: number;
+  'vote_average.lte'?: number;
 }

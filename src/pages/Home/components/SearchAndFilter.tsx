@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import Filters from "./FIlters";
 import { Drawer } from 'vaul';
+import { useFilter } from "@/contexts/Filters";
 
 type SearchAndFilterProps = {
   inputValue: string
@@ -10,11 +11,15 @@ type SearchAndFilterProps = {
   genresData: GenreResponse | undefined;
 }
 const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
+  const { isSaved, setIsSaved } = useFilter()
   const ref = React.useRef<HTMLButtonElement>(null)
 
   const handleClick = () => {
     if(ref.current) {
       ref.current.click()
+    }
+    if(isSaved) {
+      setIsSaved(false)
     }
   }
 

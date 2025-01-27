@@ -12,14 +12,8 @@ type FiltersProps = {
 }
 
 const Filters = ({ genresData }: FiltersProps) => {
-  const { isSaved, setIsSaved } = useFilter()
+  const { setIsSaved } = useFilter()
   const ref = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (isSaved) {
-      setIsSaved(false)
-    }
-  }, []);
 
   const close = () => {
     if (ref.current) {
@@ -29,9 +23,8 @@ const Filters = ({ genresData }: FiltersProps) => {
 
   const handleClick = () => {
     setIsSaved(true)
-    close() 
+    close()
   }
-
 
   return (
     <Drawer.Portal>

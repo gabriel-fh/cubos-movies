@@ -19,6 +19,8 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
     sort_by: 'popularity.desc',
     with_genres: '',
     with_original_language: '',
+    'vote_average.gte': 0,
+    'vote_average.lte': 10,
   });
 
   return (
