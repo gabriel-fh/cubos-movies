@@ -1,30 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { useFilter } from '@/contexts/Filters'
 
 const GenreList = ({ genres }: { genres: Genre[] }) => {
-  const { isSaved, filters, setFilters } = useFilter()
-  const currentFilters = filters.with_genres ? filters.with_genres.split(',').map(item => parseInt(item)) : []
+  const { setValue, watch } = useFilter()
+  const currentFilters = watch('with_genres') ? watch('with_genres').split(',').map(item => parseInt(item)) : []
   const [selectedGenres, setSelectedGenres] = useState<number[]>(currentFilters)
 
   const handleClick = (value: number) => {
     setSelectedGenres((prevSelected) => {
-      if (prevSelected.includes(value)) {
-        return prevSelected.filter((genreId) => genreId !== value)
-      } else {
-        return [...prevSelected, value]
-      }
-    })
+      const updatedSelectedGenres = prevSelected.includes(value)
+        ? prevSelected.filter((genreId) => genreId !== value)
+        : [...prevSelected, value];
+      setValue('with_genres', updatedSelectedGenres.join(','));
+      return updatedSelectedGenres;
+    });
   }
-
-  useEffect(() => {
-    if(isSaved) {
-      setFilters(prev =>({
-        ...prev,
-        with_genres: selectedGenres.join(',')
-      }))
-    }
-  }, [isSaved, selectedGenres]);
 
   return (
     <div>

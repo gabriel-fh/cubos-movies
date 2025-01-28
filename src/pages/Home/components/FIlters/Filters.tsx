@@ -9,32 +9,37 @@ import Lang from './Lang';
 
 type FiltersProps = {
   genresData: GenreResponse | undefined;
-  clearInput: () => void;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  clearInput: (isFilter?: boolean) => void;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Filters = ({ genresData, clearInput, setOpen }: FiltersProps) => {
-  const { setIsSaved } = useFilter()
+const Filters = ({ genresData, clearInput }: FiltersProps) => {
+  const { filters, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
 
   const close = () => {
-    setOpen(false)
     if (ref.current) {
       ref.current.click()
     }
   }
 
-  const handleClick = async () => {
-    await clearInput()
-    setIsSaved(true)
-    close() 
+  const cancel = () => {
+    close()
+    reset(filters)
   }
+
+  const handleClick = async (data:Filter) => {
+    await clearInput(true);
+    close();
+    setUrlParams(data);
+    setFilters(data); 
+  };
 
   return (
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-black/40" />
       <Drawer.Content className="bg-mauve8 flex flex-col rounded-t-[10px] mt-24 h-fit fixed bottom-0 left-0 right-0 outline-none">
-        <div className="p-4 bg-mauve1 rounded-t-[10px] flex-1">
+        <form className="p-4 bg-mauve1 rounded-t-[10px] flex-1" onSubmit={handleSubmit(handleClick)}>
           <div aria-hidden className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-mauve6 mb-4" />
           <div className="flex flex-col gap-5 max-w-md mx-auto">
             <Drawer.Title className="font-semibold text-mauve12 text-base">Encontre o que você procura</Drawer.Title>
@@ -43,15 +48,15 @@ const Filters = ({ genresData, clearInput, setOpen }: FiltersProps) => {
             <Lang />
             <VoteAverage />
             <div className="flex gap-4 w-full mt-4">
-              <Button className="w-full !py-2 !bg-mauve7" onClick={close}>Cancelar</Button>
-              <Button className="w-full !py-2" onClick={handleClick}>Salvar</Button>
+              <Button className="w-full !py-2 !bg-mauve7" onClick={cancel} type="button">Cancelar</Button>
+              <Button className="w-full !py-2">Salvar</Button>
               <Drawer.Close ref={ref} className="hidden" />
             </div>
           </div>
-        </div>
+        </form>
       </Drawer.Content>
     </Drawer.Portal>
-  )
-}
+  );
+};
 
 export default Filters;

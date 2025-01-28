@@ -6,7 +6,7 @@ import { useFetchSearch } from "@/hooks/useFetchSearch";
 import { useFilter } from "@/contexts/Filters";
 
 export const useHome = () => {
-  const { filters, clearFilters } = useFilter()
+  const { filters, clearFilters, reset } = useFilter();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
   const queryPage = searchParams.get("page") || "1";
@@ -29,20 +29,31 @@ export const useHome = () => {
     });
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = e.target.value;
-    setInputValue(newQuery);
-    clearFilters();
+  const setUrlParams = (newQuery: string) => {
     setSearchParams((prevParams) => {
       const updatedParams = new URLSearchParams(prevParams);
-      if(newQuery.trim().length > 0) {
+      if (newQuery.trim().length > 0) {
         updatedParams.set("query", newQuery);
       } else {
         updatedParams.delete("query");
       }
-      updatedParams.delete("page");
+      Array.from(updatedParams.keys()).forEach((key) => {
+        if (key !== "query") {
+          updatedParams.delete(key);
+        }
+      });
       return updatedParams;
     });
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>, isFilter?: boolean) => {
+    const newQuery = e.target.value;
+    setInputValue(newQuery);
+    if (!isFilter) {
+      clearFilters();
+      reset();
+      setUrlParams(newQuery);
+    }
 
     setPage(1);
   };
@@ -62,5 +73,6 @@ export const useHome = () => {
     page,
     onChange,
     changePage,
+    setInputValue,
   };
 };
