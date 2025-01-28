@@ -16,12 +16,12 @@ const Home = () => {
       />
 
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 lg:bg-mauvea3 p-4 lg:p-6 lg:rounded-md
-        ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :
+        ${data?.results?.length === 0 ? 'flex items-start justify-center' :
           'grid grid-cols-[repeat(2,1fr)] sm:grid-cols-[repeat(3,1fr)] lg:grid-cols-[repeat(4,1fr)] xl:grid-cols-[repeat(5,1fr)] place-content-start gap-2 sm:gap-3 md:gap-4 lg:gap-5'}`}
       >
         {isLoading ? (
           <Skeleton />
-        ) : inputValue.length > 0 && data?.results?.length === 0 ? (
+        ) : data?.results?.length === 0 ? (
           <SearchNotFound searchValue={inputValue} />
         ) : (
           data?.results?.map((movie) => (
