@@ -1,25 +1,17 @@
 import { Slider } from '@/components/ui/slider'
 import { useFilter } from '@/contexts/Filters';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const VoteAverage = () => {
-  const { filters, isSaved, setFilters } = useFilter()
-  const arr = [filters['vote_average.gte'] ?? 0, filters['vote_average.lte'] ?? 10];
-  const [value, setValue] = useState<number[]>(arr);
+  const { watch, setValue} = useFilter()
+  const arr = [Number(watch('vote_average_gte')) ?? 0, Number(watch('vote_average_lte')) ?? 10];
+  const [currentValue, setCurrentValue] = useState<number[]>(arr);
 
   const handleChange = (newValue: number[]) => {
-    setValue(newValue);
+    setCurrentValue(newValue);
+    setValue('vote_average_gte', newValue[0]);
+    setValue('vote_average_lte', newValue[1]);
   };
-
-  useEffect(() => {
-    if (isSaved) {
-      setFilters(prev => ({
-        ...prev,
-        "vote_average.gte": value[0],
-        "vote_average.lte": value[1]
-      }))
-    }
-  }, [isSaved]);
 
   return (
     <div>
@@ -30,7 +22,7 @@ const VoteAverage = () => {
           max={10}
           step={1}
           className='bg-mauve2'
-          value={value}
+          value={currentValue}
           onValueChange={handleChange}
         />
         <div className="flex w-full justify-between border-t">

@@ -27,22 +27,22 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   const { handleSubmit, setValue, watch, register, control } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const defaultFilters: Filter = {
+  const initialFilters: Filter = {
     sort_by:  searchParams.get("sort_by") || 'popularity.desc',
     with_genres: searchParams.get("with_genres") || '',
     with_original_language: searchParams.get("with_original_language") || '',
-    'vote_average.gte': Number(searchParams.get("vote_average.gte")) || 0,
-    'vote_average.lte': Number(searchParams.get("vote_average.lte")) || 10,
+    vote_average_gte: Number(searchParams.get("vote_average_gte")) || 0,
+    vote_average_lte: Number(searchParams.get("vote_average_lte")) || 10,
   }
 
   useEffect(() => {
-    register('sort_by', { value: defaultFilters.sort_by });
-    register('with_genres', { value: defaultFilters.with_genres });
-    register('with_original_language', {value: defaultFilters.with_original_language})
-  }, []);
+    (Object.entries(initialFilters) as [keyof Filter, Filter[keyof Filter]][]).forEach(([key, value]) => {
+      register(key, { value });
+    });
+  }, [register, initialFilters]);
 
   const [isSaved, setIsSaved] = useState<boolean>(false)
-  const [filters, setFilters] = useState<Filter>(defaultFilters);
+  const [filters, setFilters] = useState<Filter>(initialFilters);
 
   const setUrlParams = (data: Filter) => {
     setSearchParams((prevParams) => {
@@ -63,10 +63,10 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
     // Object.entries(defaultFilters).forEach(([key, value]) => {
     //   setValue(key as keyof Filter, value.toString());
     // });
-  }, [defaultFilters, setValue]);
+  }, [initialFilters, setValue]);
 
   const clearFilters = () => {
-    setFilters(defaultFilters);
+    setFilters(initialFilters);
     return;
   }
 
