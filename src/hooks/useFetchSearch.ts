@@ -8,7 +8,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, string, num
   const response = await api.get<PaginetedResponse<Movie>>("search/movie", {
     params: {
       query: searchValue,
-      page: page <= 0 ? 1 : page,
+      page: page <= 0 ? 1 : page > 500 ? 500 : page,
     },
   });
   return response.data;

@@ -28,3 +28,17 @@ type Genre = {
 type GenreResponse = {
   genres: Genre[];
 }
+
+type Lang = {
+  iso_639_1: string;
+  english_name: string;
+  name: string;
+}
+
+type Filter = {
+  sort_by: string;
+  with_genres: string;
+  with_original_language: string;
+  vote_average_gte?: number;
+  vote_average_lte?: number;
+}

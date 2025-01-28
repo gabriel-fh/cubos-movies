@@ -1,43 +1,69 @@
 import Button from "@/components/Button";
 import { Icon } from "@iconify/react";
+import React, { useRef } from "react";
+import Filters from "./FIlters";
+import { Drawer } from 'vaul';
 
 type SearchAndFilterProps = {
   inputValue: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  genresData: GenreResponse | undefined;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, isFilter?: boolean) => Promise<void>;
 }
-const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
+const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
+  const ref = useRef<HTMLButtonElement>(null);
+
+  const handleClick = () => {
+    if (ref.current) {
+      ref.current.click()
+    }
+  }
+
+  const clearInput = async (isFilter?: boolean) => {
+    await onChange({ target: { value: '' } } as any, isFilter)
+  }
+
   return (
-    <div>
+    <>
       <div className='w-full flex items-center gap-2 justify-between p-4'>
         <div className='w-full relative'>
           <input
             type="text"
             value={inputValue}
             placeholder='Pesquise por filmes'
-            className="w-full p-3 pr-10 rounded-sm h-full bg-mauve-2 border-2 border-mauve-6 text-mauve-11 font-semibold focus:border-purple-9 focus:outline-none focus:caret-purple-9"
+            className="w-full p-3 pr-10 rounded-[4px] h-full bg-mauve2 border-2 border-mauve6 text-mauve11 font-semibold focus:border-purple9 focus:outline-none focus:caret-purple9"
             onChange={onChange}
           />
           {inputValue.length < 1 ? (
             <Icon
               icon={'lets-icons:search-alt-fill'}
-              className='absolute right-4 bottom-1/4 text-mauve-11 text-2xl'
+              className='absolute right-4 bottom-1/4 text-mauve11 text-2xl'
             />
           ) : (
             <button
-              onClick={() => onChange({ target: { value: '' } } as any)}
+              onClick={async () => {
+                clearInput()
+              }}
               className='absolute right-4 bottom-1/4'>
-              <Icon icon={'ic:round-close'} className=" text-mauve-11 text-2xl" />
+              <Icon icon={'ic:round-close'} className=" text-mauve11 text-2xl" />
             </button>
           )}
         </div>
         <Button
-          className="px-4 bg-clip-padding backdrop-filter backdrop-blur-xs bg-opacity-10"
-          variant='secondary'
+          variant="secondary"
+          className="!px-4 bg-clip-padding backdrop-filter backdrop-blur-[2px] bg-opacity-1"
+          onClick={handleClick}
         >
-          <Icon icon={'mage:filter'} className='text-mauve-12 rotate-90 text-2xl' />
+          <Icon icon={'mage:filter'} className='text-mauve12 rotate-90 text-2xl' />
         </Button>
+        <Drawer.Root>
+          <Drawer.Trigger ref={ref} className="hidden" />
+          <Filters
+            genresData={genresData}
+            clearInput={clearInput}
+          />
+        </Drawer.Root>
       </div>
-    </div>
+    </>
   )
 }
 
