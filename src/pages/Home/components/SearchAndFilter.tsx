@@ -3,29 +3,24 @@ import { Icon } from "@iconify/react";
 import React, { useRef } from "react";
 import Filters from "./FIlters";
 import { Drawer } from 'vaul';
-import { useFilter } from "@/contexts/Filters";
 
 type SearchAndFilterProps = {
   inputValue: string
   genresData: GenreResponse | undefined;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, isFilter?: boolean) => void;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: SearchAndFilterProps) => {
-  const { isSaved, setIsSaved } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
 
   const handleClick = () => {
     if (ref.current) {
       ref.current.click()
     }
-    if (isSaved) {
-      setIsSaved(false)
-    }
   }
 
-  const clearInput = async () => {
-    await onChange({ target: { value: '' } } as any)
+  const clearInput = async (isFilter?: boolean) => {
+    await onChange({ target: { value: '' } } as any, isFilter)
   }
 
   return (
@@ -46,7 +41,9 @@ const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: Se
             />
           ) : (
             <button
-              onClick={clearInput}
+              onClick={async () => {
+                clearInput()
+              }}
               className='absolute right-4 bottom-1/4'>
               <Icon icon={'ic:round-close'} className=" text-mauve11 text-2xl" />
             </button>
@@ -61,8 +58,8 @@ const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: Se
         </Button>
         <Drawer.Trigger ref={ref} className="hidden" />
       </div>
-     <Filters 
-        genresData={genresData} 
+      <Filters
+        genresData={genresData}
         clearInput={clearInput}
         setInputValue={setInputValue}
       />

@@ -1,21 +1,19 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
-import { useForm, UseFormWatch, UseFormSetValue, UseFormHandleSubmit, UseFormRegister, Control,  } from "react-hook-form"
+import { useForm, UseFormWatch, UseFormSetValue, UseFormHandleSubmit, UseFormRegister, UseFormReset, } from "react-hook-form"
 
 const FilterContext = createContext<FilterData>({} as FilterData);
 
 type FilterData = {
   filters: Filter;
-  isSaved: boolean;
-  control: Control<Filter, any>;
   setFilters: React.Dispatch<React.SetStateAction<Filter>>;
-  setIsSaved: React.Dispatch<React.SetStateAction<boolean>>;
   clearFilters: () => void;
   handleSubmit: UseFormHandleSubmit<Filter, undefined>;
   watch: UseFormWatch<Filter>
   setValue: UseFormSetValue<Filter>
   setUrlParams: (data: Filter) => void;
   register: UseFormRegister<Filter>
+  reset: UseFormReset<Filter>
 }
 
 type FilterProviderProps = {
@@ -24,31 +22,33 @@ type FilterProviderProps = {
 
 
 export const FilterProvider = ({ children }: FilterProviderProps) => {
-  const { handleSubmit, setValue, watch, register, control } = useForm<Filter>();
+  const { handleSubmit, setValue, watch, register, reset } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialFilters: Filter = {
-    sort_by:  searchParams.get("sort_by") || 'popularity.desc',
+    sort_by: searchParams.get("sort_by") || 'popularity.desc',
     with_genres: searchParams.get("with_genres") || '',
     with_original_language: searchParams.get("with_original_language") || '',
     vote_average_gte: Number(searchParams.get("vote_average_gte")) || 0,
     vote_average_lte: Number(searchParams.get("vote_average_lte")) || 10,
   }
 
+  const [filters, setFilters] = useState<Filter>(initialFilters);
+
   useEffect(() => {
-    (Object.entries(initialFilters) as [keyof Filter, Filter[keyof Filter]][]).forEach(([key, value]) => {
+    (Object.entries(filters) as [keyof Filter, Filter[keyof Filter]][]).forEach(([key, value]) => {
       register(key, { value });
     });
-  }, [register, initialFilters]);
+  }, [register, initialFilters, filters]);
 
-  const [isSaved, setIsSaved] = useState<boolean>(false)
-  const [filters, setFilters] = useState<Filter>(initialFilters);
 
   const setUrlParams = (data: Filter) => {
     setSearchParams((prevParams) => {
       const updatedParams = new URLSearchParams(prevParams);
+      updatedParams.delete("page");
+      updatedParams.delete("query");
       Object.entries(data).forEach(([key, value]) => {
-        if(value) {
+        if (value) {
           updatedParams.set(key, value.toString());
         } else {
           updatedParams.delete(key);
@@ -57,13 +57,6 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       return updatedParams;
     });
   }
-
-  useEffect(() => {
-    // Setting the values from searchParams into the form
-    // Object.entries(defaultFilters).forEach(([key, value]) => {
-    //   setValue(key as keyof Filter, value.toString());
-    // });
-  }, [initialFilters, setValue]);
 
   const clearFilters = () => {
     setFilters(initialFilters);
@@ -74,16 +67,14 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
     <FilterContext.Provider
       value={{
         filters,
-        isSaved,
-        control,
         setFilters,
-        setIsSaved,
         clearFilters,
         handleSubmit,
         watch,
         setValue,
         register,
         setUrlParams,
+        reset
       }}
     >
       {children}

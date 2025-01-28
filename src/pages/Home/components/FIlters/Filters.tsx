@@ -9,16 +9,28 @@ import Lang from './Lang';
 
 type FiltersProps = {
   genresData: GenreResponse | undefined;
-  clearInput: () => void;
+  clearInput: (isFilter?: boolean) => void;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Filters = ({ genresData }: FiltersProps) => {
-  const { setFilters, handleSubmit, setUrlParams } = useFilter();
+const Filters = ({ genresData, clearInput }: FiltersProps) => {
+  const { filters, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
 
+  const close = () => {
+    if (ref.current) {
+      ref.current.click()
+    }
+  }
+
+  const cancel = () => {
+    close()
+    reset(filters)
+  }
+
   const handleClick = async (data:Filter) => {
-    console.log(data)
+    await clearInput(true);
+    close();
     setUrlParams(data);
     setFilters(data); 
   };
@@ -36,7 +48,7 @@ const Filters = ({ genresData }: FiltersProps) => {
             <Lang />
             <VoteAverage />
             <div className="flex gap-4 w-full mt-4">
-              {/* <Button className="w-full !py-2 !bg-mauve7" onClick={close}>Cancelar</Button> */}
+              <Button className="w-full !py-2 !bg-mauve7" onClick={cancel} type="button">Cancelar</Button>
               <Button className="w-full !py-2">Salvar</Button>
               <Drawer.Close ref={ref} className="hidden" />
             </div>
