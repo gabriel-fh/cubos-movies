@@ -1,4 +1,5 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 
 const FilterContext = createContext<FilterData>({} as FilterData);
 
@@ -15,12 +16,13 @@ type FilterProviderProps = {
 };
 
 export const FilterProvider = ({ children }: FilterProviderProps) => {
+  const [searchParams] = useSearchParams();
   const defaultFilters: Filter = {
-    sort_by: 'popularity.desc',
-    with_genres: '',
-    with_original_language: '',
-    'vote_average.gte': 0,
-    'vote_average.lte': 10,
+    sort_by:  searchParams.get("sort_by") || 'popularity.desc',
+    with_genres: searchParams.get("with_genres") || '',
+    with_original_language: searchParams.get("with_original_language") || '',
+    'vote_average.gte': Number(searchParams.get("vote_average.gte")) || 0,
+    'vote_average.lte': Number(searchParams.get("vote_average.lte")) || 10,
   }
   const [isSaved, setIsSaved] = useState<boolean>(false)
   const [filters, setFilters] = useState<Filter>(defaultFilters);

@@ -3,7 +3,6 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 const fetchData = async ({ queryKey }: QueryFunctionContext<[string, number, Filter]>): Promise<PaginetedResponse<Movie>> => {
   const [_, page, filter] = queryKey;
-  console.log(filter)
   const params = {
     page: page <= 0 ? 1 : page > 500 ? 500 : page,
     ...filter,

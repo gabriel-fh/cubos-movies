@@ -9,14 +9,13 @@ type SearchAndFilterProps = {
   inputValue: string
   genresData: GenreResponse | undefined;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
-const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
+const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: SearchAndFilterProps) => {
   const { isSaved, setIsSaved } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
-  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
-    setOpen(true)
     if (ref.current) {
       ref.current.click()
     }
@@ -62,7 +61,11 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
         </Button>
         <Drawer.Trigger ref={ref} className="hidden" />
       </div>
-     {<Filters genresData={genresData} clearInput={clearInput} setOpen={setOpen} />}
+     <Filters 
+        genresData={genresData} 
+        clearInput={clearInput}
+        setInputValue={setInputValue}
+      />
     </Drawer.Root>
   )
 }

@@ -5,7 +5,7 @@ import Pagination from "@/components/Pagination";
 import { useHome } from "./Hooks/useHome";
 
 const Home = () => {
-  const { data, isLoading, genresData, page, inputValue, changePage, onChange } = useHome();
+  const { data, isLoading, genresData, page, inputValue, changePage, onChange, setInputValue } = useHome();
 
   return (
     <main className="w-full min-h-screen">
@@ -17,6 +17,7 @@ const Home = () => {
         inputValue={inputValue} 
         onChange={onChange} 
         genresData={genresData}
+        setInputValue={setInputValue}
       />
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 p-4 
         ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :

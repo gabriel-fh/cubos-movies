@@ -3,32 +3,33 @@ import Button from '@/components/Button';
 import Ordenate from './Ordenate';
 import GenreList from './GenreList';
 import { useFilter } from '@/contexts/Filters';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import VoteAverage from './VoteAverage';
 import Lang from './Lang';
+import { useSearchParams } from 'react-router';
 
 type FiltersProps = {
   genresData: GenreResponse | undefined;
   clearInput: () => void;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Filters = ({ genresData, clearInput, setOpen }: FiltersProps) => {
-  const { setIsSaved } = useFilter()
+const Filters = ({ genresData, clearInput, setInputValue }: FiltersProps) => {
+  const { filters, isSaved, setIsSaved } = useFilter();
+  const [_, setSearchParams] = useSearchParams();
   const ref = useRef<HTMLButtonElement>(null);
 
   const close = () => {
-    setOpen(false)
     if (ref.current) {
-      ref.current.click()
+      ref.current.click();
     }
-  }
+  };
 
   const handleClick = async () => {
-    await clearInput()
-    setIsSaved(true)
-    close() 
-  }
+    await setInputValue('');
+    setIsSaved(true);
+    close(); 
+  };
 
   return (
     <Drawer.Portal>
@@ -51,7 +52,7 @@ const Filters = ({ genresData, clearInput, setOpen }: FiltersProps) => {
         </div>
       </Drawer.Content>
     </Drawer.Portal>
-  )
-}
+  );
+};
 
 export default Filters;

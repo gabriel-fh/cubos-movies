@@ -29,10 +29,7 @@ export const useHome = () => {
     });
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = e.target.value;
-    setInputValue(newQuery);
-    clearFilters();
+  const setUrlParams = (newQuery: string) => {
     setSearchParams((prevParams) => {
       const updatedParams = new URLSearchParams(prevParams);
       if(newQuery.trim().length > 0) {
@@ -43,7 +40,13 @@ export const useHome = () => {
       updatedParams.delete("page");
       return updatedParams;
     });
+  }
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
+    setInputValue(newQuery);
+    clearFilters();
+    setUrlParams(newQuery);
     setPage(1);
   };
 
@@ -62,5 +65,6 @@ export const useHome = () => {
     page,
     onChange,
     changePage,
+    setInputValue,
   };
 };
