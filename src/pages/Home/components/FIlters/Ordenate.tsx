@@ -9,12 +9,8 @@ import { useFilter } from "@/contexts/Filters"
 import { SORT_BY_OPTIONS } from "@/utils/constants"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { useState } from "react"
-import { UseFormSetValue, UseFormWatch } from "react-hook-form"
 
-const Ordenate = ({ }: {
-  setValue?: UseFormSetValue<Filter>,
-  watch?: UseFormWatch<Filter>
-}) => {
+const Ordenate = () => {
   const { setValue, watch } = useFilter()
   const [currentValue, setCurrentValue] = useState<string>(watch('sort_by'))
 

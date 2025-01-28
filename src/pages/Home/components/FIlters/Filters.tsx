@@ -31,7 +31,7 @@ const Filters = ({ genresData }: FiltersProps) => {
           <div aria-hidden className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-mauve6 mb-4" />
           <div className="flex flex-col gap-5 max-w-md mx-auto">
             <Drawer.Title className="font-semibold text-mauve12 text-base">Encontre o que você procura</Drawer.Title>
-            <Ordenate  />
+            <Ordenate />
             {genresData?.genres && <GenreList genres={genresData.genres} />}
             <Lang />
             <VoteAverage />
