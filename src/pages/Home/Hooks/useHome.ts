@@ -6,7 +6,7 @@ import { useFetchSearch } from "@/hooks/useFetchSearch";
 import { useFilter } from "@/contexts/Filters";
 
 export const useHome = () => {
-  const { filters } = useFilter()
+  const { filters, clearFilters } = useFilter()
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
   const queryPage = searchParams.get("page") || "1";
@@ -21,7 +21,6 @@ export const useHome = () => {
   const data = inputValue.trim().length > 0 ? searchData : discoverData;
   const isLoading = inputValue.trim().length > 0 ? searchLoading : discoverLoading;
 
-
   const changePage = (page: number) => {
     setPage(page);
     setSearchParams((prevParams) => {
@@ -33,7 +32,7 @@ export const useHome = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setInputValue(newQuery);
-  
+    clearFilters();
     setSearchParams((prevParams) => {
       const updatedParams = new URLSearchParams(prevParams);
       if(newQuery.trim().length > 0) {

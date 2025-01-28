@@ -3,27 +3,31 @@ import Button from '@/components/Button';
 import Ordenate from './Ordenate';
 import GenreList from './GenreList';
 import { useFilter } from '@/contexts/Filters';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import VoteAverage from './VoteAverage';
 import Lang from './Lang';
 
 type FiltersProps = {
   genresData: GenreResponse | undefined;
+  clearInput: () => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Filters = ({ genresData }: FiltersProps) => {
+const Filters = ({ genresData, clearInput, setOpen }: FiltersProps) => {
   const { setIsSaved } = useFilter()
   const ref = useRef<HTMLButtonElement>(null);
 
   const close = () => {
+    setOpen(false)
     if (ref.current) {
       ref.current.click()
     }
   }
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    await clearInput()
     setIsSaved(true)
-    close()
+    close() 
   }
 
   return (
@@ -36,11 +40,11 @@ const Filters = ({ genresData }: FiltersProps) => {
             <Drawer.Title className="font-semibold text-mauve12 text-base">Encontre o que você procura</Drawer.Title>
             <Ordenate />
             {genresData?.genres && <GenreList genres={genresData.genres} />}
-            <Lang/>
-            <VoteAverage/>
+            <Lang />
+            <VoteAverage />
             <div className="flex gap-4 w-full mt-4">
               <Button className="w-full !py-2 !bg-mauve7" onClick={close}>Cancelar</Button>
-              <Button className="w-full !py-2"  onClick={handleClick}>Salvar</Button>
+              <Button className="w-full !py-2" onClick={handleClick}>Salvar</Button>
               <Drawer.Close ref={ref} className="hidden" />
             </div>
           </div>

@@ -13,7 +13,6 @@ const VoteAverage = () => {
 
     useEffect(() => {
       if(isSaved) {
-        console.log(value);
         setFilters(prev => ({
           ...prev,
           "vote_average.gte": value[0],

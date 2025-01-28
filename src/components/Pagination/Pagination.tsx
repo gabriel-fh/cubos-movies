@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Button from '../Button';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
@@ -9,6 +10,12 @@ type PaginationProps = {
 
 const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
   const total = totalPages > 500 ? 500 : totalPages;
+  
+  useEffect(() => {
+    if (active > total) {
+      setActive(total);
+    }
+  }, [active, total, setActive]);
 
   const getItemProps = (idx: number) => ({
     disabled: active === idx,

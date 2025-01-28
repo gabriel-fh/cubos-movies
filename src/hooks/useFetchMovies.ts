@@ -5,7 +5,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, number, Fil
   const [_, page, filter] = queryKey;
   console.log(filter)
   const params = {
-    page: page <= 0 ? 1 : page,
+    page: page <= 0 ? 1 : page > 500 ? 500 : page,
     ...filter,
   };
 

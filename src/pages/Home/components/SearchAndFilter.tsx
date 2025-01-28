@@ -1,26 +1,32 @@
 import Button from "@/components/Button";
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useRef } from "react";
 import Filters from "./FIlters";
 import { Drawer } from 'vaul';
 import { useFilter } from "@/contexts/Filters";
 
 type SearchAndFilterProps = {
   inputValue: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   genresData: GenreResponse | undefined;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
-  const { isSaved, setIsSaved } = useFilter()
-  const ref = React.useRef<HTMLButtonElement>(null)
+  const { isSaved, setIsSaved } = useFilter();
+  const ref = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
-    if(ref.current) {
+    setOpen(true)
+    if (ref.current) {
       ref.current.click()
     }
-    if(isSaved) {
+    if (isSaved) {
       setIsSaved(false)
     }
+  }
+
+  const clearInput = async () => {
+    await onChange({ target: { value: '' } } as any)
   }
 
   return (
@@ -41,14 +47,14 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
             />
           ) : (
             <button
-              onClick={() => onChange({ target: { value: '' } } as any)}
+              onClick={clearInput}
               className='absolute right-4 bottom-1/4'>
               <Icon icon={'ic:round-close'} className=" text-mauve11 text-2xl" />
             </button>
           )}
         </div>
-        <Button 
-          variant="secondary" 
+        <Button
+          variant="secondary"
           className="!px-4 bg-clip-padding backdrop-filter backdrop-blur-[2px] bg-opacity-1"
           onClick={handleClick}
         >
@@ -56,7 +62,7 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
         </Button>
         <Drawer.Trigger ref={ref} className="hidden" />
       </div>
-      <Filters genresData={genresData} />
+     {<Filters genresData={genresData} clearInput={clearInput} setOpen={setOpen} />}
     </Drawer.Root>
   )
 }
