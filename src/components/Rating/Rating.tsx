@@ -1,7 +1,8 @@
 const Rating = ({ voteAverage }: {
   voteAverage: number
 }) => {
-  const percentage = Math.round((voteAverage / 10) * 100);
+  
+  const percentage = Math.round(((voteAverage ?? 0) / 10) * 100);
   const size = 100;
   const strokeWidth = 8;
   const radius = (size - strokeWidth) / 2;
