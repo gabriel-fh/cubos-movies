@@ -5,7 +5,7 @@ import Pagination from "@/components/Pagination";
 import { useHome } from "./Hooks/useHome";
 
 const Home = () => {
-  const { data, isLoading, genresData, page, inputValue, changePage, onChange, setInputValue } = useHome();
+  const { data, isLoading, genresData, page, inputValue, changePage, onChange } = useHome();
 
   return (
     <main className="w-full min-h-screen">
@@ -13,11 +13,10 @@ const Home = () => {
     bg-no-repeat bg-cover bg-center before:w-full before:h-full before:absolute before:top-0 before:left-0 
     before:bg-gradient-to-b before:from-mauve1 before:to-mauve1 before:via-mauve1/90"/>
 
-      <SearchAndFilter 
-        inputValue={inputValue} 
-        onChange={onChange} 
+      <SearchAndFilter
+        inputValue={inputValue}
+        onChange={onChange}
         genresData={genresData}
-        setInputValue={setInputValue}
       />
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 p-4 
         ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :

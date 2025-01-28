@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { useForm, UseFormWatch, UseFormSetValue, UseFormHandleSubmit, UseFormRegister, UseFormReset, } from "react-hook-form"
 
@@ -6,6 +6,7 @@ const FilterContext = createContext<FilterData>({} as FilterData);
 
 type FilterData = {
   filters: Filter;
+  initialFilters: Filter;
   setFilters: React.Dispatch<React.SetStateAction<Filter>>;
   clearFilters: () => void;
   handleSubmit: UseFormHandleSubmit<Filter, undefined>;
@@ -25,19 +26,19 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   const { handleSubmit, setValue, watch, register, reset } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const initialFilters: Filter = {
+  const initialFilters: Filter = useMemo(() => ({
     sort_by: searchParams.get("sort_by") || 'popularity.desc',
     with_genres: searchParams.get("with_genres") || '',
     with_original_language: searchParams.get("with_original_language") || '',
     vote_average_gte: Number(searchParams.get("vote_average_gte")) || 0,
     vote_average_lte: Number(searchParams.get("vote_average_lte")) || 10,
-  }
+  }), [searchParams]);
 
   const [filters, setFilters] = useState<Filter>(initialFilters);
 
   useEffect(() => {
-    (Object.entries(filters) as [keyof Filter, Filter[keyof Filter]][]).forEach(([key, value]) => {
-      register(key, { value });
+    Object.entries(filters).forEach(([key, value]) => {
+      register(key as keyof Filter, { value });
     });
   }, [register, initialFilters, filters]);
 
@@ -60,12 +61,14 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
 
   const clearFilters = () => {
     setFilters(initialFilters);
+    reset(initialFilters);
     return;
   }
 
   return (
     <FilterContext.Provider
       value={{
+        initialFilters,
         filters,
         setFilters,
         clearFilters,

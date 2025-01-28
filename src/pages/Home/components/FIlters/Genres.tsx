@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { useFilter } from '@/contexts/Filters'
 
-const GenreList = ({ genres }: { genres: Genre[] }) => {
+const Genres = ({ genres }: { genres: Genre[] }) => {
   const { setValue, watch } = useFilter()
   const currentFilters = watch('with_genres') ? watch('with_genres').split(',').map(item => parseInt(item)) : []
   const [selectedGenres, setSelectedGenres] = useState<number[]>(currentFilters)
@@ -37,4 +37,4 @@ const GenreList = ({ genres }: { genres: Genre[] }) => {
   )
 }
 
-export default GenreList;
+export default Genres;

@@ -7,10 +7,9 @@ import { Drawer } from 'vaul';
 type SearchAndFilterProps = {
   inputValue: string
   genresData: GenreResponse | undefined;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>, isFilter?: boolean) => void;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, isFilter?: boolean) => Promise<void>;
 }
-const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: SearchAndFilterProps) => {
+const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
   const ref = useRef<HTMLButtonElement>(null);
 
   const handleClick = () => {
@@ -24,7 +23,7 @@ const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: Se
   }
 
   return (
-    <Drawer.Root>
+    <>
       <div className='w-full flex items-center gap-2 justify-between p-4'>
         <div className='w-full relative'>
           <input
@@ -56,14 +55,15 @@ const SearchAndFilter = ({ inputValue, genresData, onChange, setInputValue }: Se
         >
           <Icon icon={'mage:filter'} className='text-mauve12 rotate-90 text-2xl' />
         </Button>
-        <Drawer.Trigger ref={ref} className="hidden" />
+        <Drawer.Root>
+          <Drawer.Trigger ref={ref} className="hidden" />
+          <Filters
+            genresData={genresData}
+            clearInput={clearInput}
+          />
+        </Drawer.Root>
       </div>
-      <Filters
-        genresData={genresData}
-        clearInput={clearInput}
-        setInputValue={setInputValue}
-      />
-    </Drawer.Root>
+    </>
   )
 }
 
