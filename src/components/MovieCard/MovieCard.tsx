@@ -11,7 +11,7 @@ type MovieCardProps = {
 const MovieCard = ({ movie, genresData }: MovieCardProps) => {
 
   const genres = genresData?.genres.reduce((acc, genre) => {
-    if (movie.genre_ids.includes(genre.id)) {
+    if (movie?.genre_ids?.includes(genre.id)) {
       acc.push(genre.name);
     }
     return acc;
@@ -28,7 +28,7 @@ const MovieCard = ({ movie, genresData }: MovieCardProps) => {
         ) : (
           <Icon icon={'circum:image-off'} className="text-mauve10 text-7xl" />
         )}
-        <Rating voteAverage={movie.vote_average} />
+        {/* <Rating voteAverage={movie.vote_average} /> */} {/* tratar erro de ranting nan */}
         <figcaption className="absolute bottom-0 left-0 font-semibold p-3">
           <h3 className=" text-[15px] text-white line-clamp-2">{movie.title}</h3>
           {genres && genres?.length > 0 && (
