@@ -23,8 +23,8 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
   }
 
   return (
-    <>
-      <div className='w-full flex items-center gap-2 justify-between p-4'>
+    <div className="w-full flex justify-center items-center lg:my-4">
+      <div className='w-full sm:w-9/12 md:w-8/12 lg:w-7/12 xl:w-5/12 flex items-center gap-2  p-4'>
         <div className='w-full relative'>
           <input
             type="text"
@@ -63,7 +63,7 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
           />
         </Drawer.Root>
       </div>
-    </>
+    </div>
   )
 }
 

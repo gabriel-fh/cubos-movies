@@ -37,7 +37,7 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
   return (
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-black/40" onClick={cancel} />
-      <Drawer.Content className="bg-mauve8 flex flex-col rounded-t-[10px] mt-24 h-[90%] lg:h-[320px] fixed bottom-0 left-0 right-0 outline-none">
+      <Drawer.Content className="bg-mauve8 flex flex-col rounded-t-[10px] mt-24 max-h-[90%] fixed bottom-0 left-0 right-0 outline-none">
         <form className="p-4 bg-mauve1 rounded-t-[10px] flex-1 overflow-y-auto" onSubmit={handleSubmit(handleClick)}>
           <div aria-hidden className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-mauve6 mb-4" />
           <div className="flex flex-col gap-5 max-w-md mx-auto">

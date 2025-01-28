@@ -8,20 +8,17 @@ const Home = () => {
   const { data, isLoading, genresData, page, inputValue, changePage, onChange } = useHome();
 
   return (
-    <main className="w-full min-h-screen">
-      <div className="absolute -z-10 -top-32 w-full min-h-screen bg-[url(backgropund-krists-luhaers-unsplash.png)]
-    bg-no-repeat bg-cover bg-center before:w-full before:h-full before:absolute before:top-0 before:left-0 
-    before:bg-gradient-to-b before:from-mauve1 before:to-mauve1 before:via-mauve1/90"/>
-
+    <main className="w-full min-h-screen lg:px-4">
       <SearchAndFilter
         inputValue={inputValue}
         onChange={onChange}
         genresData={genresData}
       />
-      <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 p-4 
-        ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :
-          'grid grid-cols-[repeat(2,1fr)] place-content-start gap-2'}`}>
 
+      <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 lg:bg-mauvea3 p-4 lg:p-6 lg:rounded-md
+        ${inputValue.length > 0 && data?.results?.length === 0 ? 'flex items-start justify-center' :
+          'grid grid-cols-[repeat(2,1fr)] sm:grid-cols-[repeat(3,1fr)] lg:grid-cols-[repeat(4,1fr)] xl:grid-cols-[repeat(5,1fr)] place-content-start gap-2 sm:gap-3 md:gap-4 lg:gap-5'}`}
+      >
         {isLoading ? (
           <Skeleton />
         ) : inputValue.length > 0 && data?.results?.length === 0 ? (
