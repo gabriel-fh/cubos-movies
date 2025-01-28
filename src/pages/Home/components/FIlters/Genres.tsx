@@ -19,14 +19,16 @@ const Genres = ({ genres }: { genres: Genre[] }) => {
 
   return (
     <div>
-      <h3 className="text-mauve12 font-semibold">Gêneros</h3>
+      <h3 className="text-mauve12 font-medium">Gêneros</h3>
       <ul className="flex flex-wrap gap-2 mt-2">
         {genres.map((genre) => (
-          <li key={genre.id}>
+          <li
+            key={genre.id}
+          >
             <Badge
-              variant="outline"
-              className={`${selectedGenres.includes(genre.id) ? 'bg-purple9 text-white ' : 'bg-mauve2'} cursor-pointer !font-normal !hover:bg-red-500 `}
+              className={`${selectedGenres.includes(genre.id) ? 'bg-purple9 !text-white' : 'bg-mauve2'} text-mauve12 cursor-pointer lg:!text-sm !font-normal hover:bg-purple8 hover:text-white focus:outline-none focus:ring-1 focus:ring-purple9 focus:!ring-offset-0 border-mauve3 shadow-sm`}
               onClick={() => handleClick(genre.id)}
+              tabIndex={0}
             >
               {genre.name}
             </Badge>

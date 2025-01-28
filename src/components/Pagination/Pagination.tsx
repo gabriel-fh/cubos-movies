@@ -10,32 +10,33 @@ type PaginationProps = {
 
 const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
   const total = totalPages > 500 ? 500 : totalPages;
+  const current = active > total ? total : active < 1 ? 1 : active;
   
   useEffect(() => {
-    if (active > total) {
+    if (current > total) {
       setActive(total);
     }
-  }, [active, total, setActive]);
+  }, [current, total, setActive]);
 
   const getItemProps = (idx: number) => ({
-    disabled: active === idx,
+    disabled: current === idx,
     onClick: () => setActive(idx),
   });
 
   const next = () => {
-    if (active === total) return;
-    setActive(active + 1);
+    if (current === total) return;
+    setActive(current + 1);
   };
 
   const prev = () => {
-    if (active === 1) return;
-    setActive(active - 1);
+    if (current === 1) return;
+    setActive(current - 1);
   };
 
   const getVisiblePages = () => {
     const pages = [];
     let minValue = 3;
-    if (active <= minValue) {
+    if (current <= minValue) {
       if(minValue > total) minValue = total;
       for (let i = 1; i <= minValue; i++) {
         pages.push(i);
@@ -44,10 +45,10 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
       if (total > 3) pages.push(total);
     } else {
       pages.push(1);
-      if (active > 3) pages.push('...');
+      if (current > 3) pages.push('...');
       
-      if (active < total - 2) {
-        pages.push(active);
+      if (current < total - 2) {
+        pages.push(current);
         pages.push('...');
         pages.push(total);
       } else {
@@ -67,7 +68,7 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
           variant="primary"
           className="!px-2 !py-2 sm:!px-5 sm:!py-3 flex items-center"
           onClick={prev}
-          disabled={active === 1}
+          disabled={current === 1}
         >
           <Icon icon={'lets-icons:expand-left'} className="text-mauve-12 text-xl" />
         </Button>
@@ -89,7 +90,7 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
           variant="primary"
           className="!px-2 !py-2 sm:!px-5 sm:!py-3 flex items-center gap-2"
           onClick={next}
-          disabled={active === total}
+          disabled={current === total}
         >
           <Icon icon={'lets-icons:expand-right'} className="text-mauve-12 text-xl" />
         </Button>

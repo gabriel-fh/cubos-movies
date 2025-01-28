@@ -3,6 +3,8 @@ import { Icon } from "@iconify/react";
 import React, { useRef } from "react";
 import Filters from "./FIlters";
 import { Drawer } from 'vaul';
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { useResize } from "@/hooks/useResize";
 
 type SearchAndFilterProps = {
   inputValue: string
@@ -11,7 +13,7 @@ type SearchAndFilterProps = {
 }
 const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
   const ref = useRef<HTMLButtonElement>(null);
-
+  const { isTablet } = useResize()
   const handleClick = () => {
     if (ref.current) {
       ref.current.click()
@@ -55,13 +57,24 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
         >
           <Icon icon={'mage:filter'} className='text-mauve12 rotate-90 text-2xl' />
         </Button>
-        <Drawer.Root>
-          <Drawer.Trigger ref={ref} className="hidden" />
-          <Filters
-            genresData={genresData}
-            clearInput={clearInput}
-          />
-        </Drawer.Root>
+        {!isTablet ? (
+          <Drawer.Root>
+            <Drawer.Trigger ref={ref} className="hidden" />
+            <Filters
+              genresData={genresData}
+              clearInput={clearInput}
+            />
+          </Drawer.Root>
+        ) : (
+          <Sheet>
+            <SheetTrigger ref={ref} className="hidden" />
+            <Filters
+              genresData={genresData}
+              clearInput={clearInput}
+            />
+          </Sheet>
+        )}
+
       </div>
     </div>
   )

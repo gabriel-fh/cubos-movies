@@ -9,8 +9,8 @@ export const useHome = () => {
   const { filters, clearFilters } = useFilter();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
-  const queryPage = searchParams.get("page") || "1";
-  const [page, setPage] = useState<number>(parseInt(queryPage));
+  const currentPage = searchParams.get("page") || "1";
+  const [page, setPage] = useState<number>(parseInt(currentPage));
   const [inputValue, setInputValue] = useState<string>(query || "");
 
   const { data: discoverData, isLoading: discoverLoading } = useFetchMovies(page, filters);

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select"
 import { useFilter } from "@/contexts/Filters"
 import { SORT_BY_OPTIONS } from "@/utils/constants"
-import { Icon } from "@iconify/react/dist/iconify.js"
+// import { Icon } from "@iconify/react/dist/iconify.js"
 import { useState } from "react"
 
 const Ordenate = () => {
@@ -21,7 +21,7 @@ const Ordenate = () => {
 
   return (
     <div>
-      <h3 className="text-mauve-12 font-semibold">Ordenar</h3>
+      <h3 className="text-mauve-12 font-medium">Ordenar</h3>
       <Select value={currentValue} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full mt-2 bg-mauve2 focus:outline-none focus:ring-1 focus:ring-purple9 focus:caret-purple9">
           <SelectValue />
@@ -31,11 +31,11 @@ const Ordenate = () => {
             return (
               <SelectItem key={option.value} value={option.value} className="cursor-pointer" >
                 <span className='flex items-center gap-2'>
-                  <Icon
+                  {/* <Icon
                     icon={option.value.includes("desc") ? 'mi:arrow-down' : 'mi:arrow-up'}
                     inline
                     className='text-lg'
-                  />
+                  /> */}
                   {option.label}
                 </span>
               </SelectItem>
