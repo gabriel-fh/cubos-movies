@@ -10,7 +10,7 @@ export const useFetchGenres = () => {
   const query = useQuery({
     queryFn: fetchData,
     queryKey: ["genres"],
-    staleTime: 1000 * 60 * 30,
+    staleTime: 1000 * 60 * 60,
   });
 
   return query;

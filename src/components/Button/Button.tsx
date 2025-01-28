@@ -10,7 +10,7 @@ const Button = ({ children, variant = 'primary', className, ...props }: ButtonPr
 
   return (
     <button
-      className={`cursor-pointer outline-none px-5 py-3 !font-semibold text-white rounded-[4px] opacity
+      className={`cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple9 px-5 py-3 !font-semibold text-white rounded-[4px] opacity
         ${variant === 'primary' ? primary : secondary}  ${className}`
       }
       {...props}

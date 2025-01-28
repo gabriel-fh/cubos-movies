@@ -15,13 +15,14 @@ const VoteAverage = () => {
 
   return (
     <div>
-      <h3 className='text-mauve12 font-semibold mb-2'>Pontuação média</h3>
+      <h3 className='text-mauve12 font-medium mb-2'>Pontuação média</h3>
       <div className='relative mt-4 z-[5]'>
         <Slider
           min={0}
           max={10}
           step={1}
-          className='bg-mauve2'
+          defaultValue={arr}
+          className='bg-mauve2 cursor-pointer'
           value={currentValue}
           onValueChange={handleChange}
         />

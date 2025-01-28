@@ -23,7 +23,7 @@ const Lang = () => {
   return (
     data && (
       <div>
-        <h3 className="text-mauve12 font-semibold">Idioma de origem</h3>
+        <h3 className="text-mauve12 font-medium">Idioma de origem</h3>
         <Select value={currentValue} onValueChange={handleValueChange}>
           <SelectTrigger className="w-full bg-mauve2 mt-2 focus:outline-none focus:ring-1 focus:ring-purple9 focus:caret-purple9">
             <SelectValue placeholder={'Selecione um idioma'} className='selectPlaceholder' />

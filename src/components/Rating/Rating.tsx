@@ -9,9 +9,9 @@ const Rating = ({ voteAverage }: {
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = `${(percentage / 100) * circumference} ${circumference}`;
   return (
-    <div className="hidden group-hover:block absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-filter backdrop-blur-[3px] bg-opacity-10">
+    <div className="hidden group-hover:block absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-filter backdrop-blur-[3px] bg-black/30">
       <svg
-        className="w-28"
+        className="w-28 md:w-36"
         viewBox={`0 0 ${size} ${size}`}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -37,9 +37,9 @@ const Rating = ({ voteAverage }: {
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
       </svg>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <span className="text-[#FFE000] font-bold text-3xl">{percentage}</span>
-        <span className="text-white font-bold text-xl">%</span>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-end">
+        <span className="text-[#FFE000] font-bold text-3xl md:text-4xl">{percentage}</span>
+        <span className="text-white font-bold text-xl md:text-2xl">%</span>
       </div>
     </div>
   )

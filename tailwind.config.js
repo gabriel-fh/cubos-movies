@@ -55,7 +55,7 @@ export default {
   			purple10: 'rgba(var(--purple-10))',
   			purple11: 'rgba(var(--purple-11))',
   			purple12: 'rgba(var(--purple-12))',
-  			background: 'hsl(var(--background))',
+  			background: 'rgb(var(--mauve-1))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
