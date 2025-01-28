@@ -38,6 +38,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   useEffect(() => {
     register('sort_by', { value: defaultFilters.sort_by });
     register('with_genres', { value: defaultFilters.with_genres });
+    register('with_original_language', {value: defaultFilters.with_original_language})
   }, []);
 
   const [isSaved, setIsSaved] = useState<boolean>(false)
