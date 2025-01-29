@@ -1,4 +1,4 @@
-export const IMG_BASE_URL = "https://image.tmdb.org/t/p/original/";
+export const IMG_BASE_URL = "https://image.tmdb.org/t/p/original";
 
 export const SORT_BY_OPTIONS = [
   { label: "Mais Populares", value: "popularity.desc" },

@@ -12,7 +12,7 @@ const Card = ({ title, value, className, variant = 'primary' }: CardProps) => {
   const isGenre = value instanceof Array
 
   return (
-    <div className={`bg-mauvea3 py-3 px-4 rounded-sm flex-1 ${className}`}>
+    <div className={`bg-mauve3/75 py-3 px-3 rounded-sm flex-1 backdrop-filter backdrop-blur-[2px] ${className}`}>
       <h3 className="text-mauve11 font-bold text-sm uppercase">{title}</h3>
       {!isGenre ? (
         <span

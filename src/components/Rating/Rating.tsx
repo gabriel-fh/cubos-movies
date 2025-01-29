@@ -47,12 +47,13 @@ const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) =>
       </svg>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-end">
         <span
-          className={`text-[#FFE000] font-bold text-3xl md:text-4xl 
-            ${variant === 'secondary' && 'text-xl'}`
+          className={`text-[#FFE000] font-bold  
+            ${variant === 'secondary' ? 'text-xl' : 'text-3xl md:text-4xl'}`
           }>
           {percentage}
         </span>
-        <span className={`text-white font-bold text-xl md:text-2xl ${variant === 'secondary' && '!text-base'}`}>%</span>
+        <span className={`text-white font-bold  
+            ${variant === 'secondary' ? 'text-base' : 'text-xl md:text-2xl'}`}>%</span>
       </div>
     </div>
   )
