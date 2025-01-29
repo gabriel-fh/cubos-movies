@@ -62,7 +62,7 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center">
+    <nav className="w-full flex items-center justify-center">
       <div className="p-4 lg:p-6 flex items-center flex-wrap gap-2">
         <Button
           variant="primary"
@@ -95,7 +95,7 @@ const Pagination = ({ totalPages, active, setActive }: PaginationProps) => {
           <Icon icon={'lets-icons:expand-right'} className="text-mauve-12 text-xl" />
         </Button>
       </div>
-    </div>
+    </nav>
   );
 };
 

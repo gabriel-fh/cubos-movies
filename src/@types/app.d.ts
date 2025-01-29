@@ -7,17 +7,10 @@ type PaginetedResponse<T> = {
 
 type Movie = {
   id: number;
-  backdrop_path: string;
   genre_ids: number[];
-  original_title: string;
-  overview: string;
-  popularity: number;
   poster_path: string;
-  release_date: string;
   title: string;
-  video: boolean;
   vote_average: number;
-  vote_count: number;
 };
 
 type Genre = {
@@ -42,3 +35,19 @@ type Filter = {
   vote_average_gte?: number;
   vote_average_lte?: number;
 }
+
+type MovieInfo = {
+  backdrop_path: string;
+  original_title: string;
+  popularity: number;
+  video: boolean;
+  vote_count: number;
+  genres: Genre[];
+  overview: string;
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  tagline: string;
+  status: string;
+  budget: number;
+} & Movie;
