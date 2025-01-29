@@ -50,4 +50,5 @@ type MovieInfo = {
   tagline: string;
   status: string;
   budget: number;
+  original_language: string;
 } & Movie;

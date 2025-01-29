@@ -1,9 +1,10 @@
 type RatingProps = {
   voteAverage: number
   variant?: 'primary' | 'secondary'
+  className?: string
 }
 
-const Rating = ({ voteAverage, variant = 'primary' }: RatingProps) => {
+const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) => {
   const percentage = Math.round(((voteAverage ?? 0) / 10) * 100);
   const size = 100;
   const strokeWidth = 8;
@@ -11,14 +12,14 @@ const Rating = ({ voteAverage, variant = 'primary' }: RatingProps) => {
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = `${(percentage / 100) * circumference} ${circumference}`;
 
-  const primary = 'group-hover:block absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
+  const primary = 'hidden group-hover:block absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
 
   return (
     <div className={`rounded-full backdrop-filter backdrop-blur-[3px] bg-black/30 
-      ${variant === 'primary' && primary}`}
+      ${variant === 'primary' && primary} ${className}`}
     >
       <svg
-        className={variant === 'primary' ? 'w-24 sm:w-28 md:w-32 xl:w-36' : 'w-[90px]'}
+        className={variant === 'primary' ? 'w-24 sm:w-28 md:w-32 xl:w-36' : 'w-[85px]'}
         viewBox={`0 0 ${size} ${size}`}
         xmlns="http://www.w3.org/2000/svg"
       >
