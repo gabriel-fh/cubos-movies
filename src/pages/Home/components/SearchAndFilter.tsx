@@ -32,7 +32,7 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
             type="text"
             value={inputValue}
             placeholder='Pesquise por filmes'
-            className="w-full p-3 pr-10 rounded-[4px] h-full bg-mauve2 border-2 border-mauve6 text-mauve11 font-semibold focus:border-purple9 focus:outline-none focus:caret-purple9"
+            className="w-full p-3 pr-10 rounded-[4px] h-full bg-mauve2 border-2 border-mauve6 text-mauve12 font-medium focus:border-purple9 focus:outline-none focus:caret-purple9 placeholder:text-mauve9"
             onChange={onChange}
           />
           {inputValue.length < 1 ? (

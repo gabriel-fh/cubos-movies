@@ -2,7 +2,7 @@ import { Drawer } from 'vaul';
 import Button from '@/components/Button';
 import Ordenate from './Ordenate';
 import { useFilter } from '@/contexts/Filters';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import VoteAverage from './VoteAverage';
 import Lang from './Lang';
 import Genres from './Genres';
@@ -10,8 +10,8 @@ import { useResize } from '@/hooks/useResize';
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 
 type FiltersProps = {
-  genresData: GenreResponse | undefined;
   clearInput: (isFilter?: boolean) => void;
+  genresData: GenreResponse | undefined;
 }
 
 const Filters = ({ genresData, clearInput }: FiltersProps) => {
@@ -25,16 +25,21 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
   }
 
   const cancel = () => {
-    close()
+    setTimeout(() => {
+      if (ref.current) {
+        ref.current.click()
+      }
+    }, 50)
     reset(filters)
   }
 
-  const handleClick = async (data: Filter) => {
+  const handleClick = useCallback(async (data: Filter) => {
+    console.log('save')
     await setFilters(data);
     await setUrlParams(data);
     clearInput(true);
-    close();
-  };
+    close()
+  }, [setFilters, setUrlParams, clearInput, close]);
 
   const FormFilter = () => {
     return (
@@ -49,7 +54,7 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
             )}
           </div>
           <Ordenate />
-          {genresData?.genres && <Genres genres={genresData.genres} />}
+          {genresData && genresData?.genres?.length && <Genres genres={genresData.genres} />}
           <Lang />
           <VoteAverage />
           <div className="flex gap-4 w-full mt-4">
@@ -75,16 +80,15 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
         </Drawer.Content>
       </Drawer.Portal>
     ) : (
-      // <SheetOverlay>
       <SheetContent onClose={cancel}>
         <SheetHeader >
           <SheetTitle className="font-semibold text-mauve12 text-base">Encontre o que você procura</SheetTitle>
         </SheetHeader>
         <FormFilter />
       </SheetContent>
-      // {/* </SheetOverlay> */}
     )
   );
 };
 
 export default Filters;
+

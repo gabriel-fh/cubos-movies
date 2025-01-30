@@ -9,7 +9,6 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, string, num
     params: {
       query: searchValue,
       page: page <= 0 ? 1 : page > 500 ? 500 : page,
-      
     },
   });
   return response.data;

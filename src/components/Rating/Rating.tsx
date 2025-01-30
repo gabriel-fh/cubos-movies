@@ -1,17 +1,25 @@
-const Rating = ({ voteAverage }: {
+type RatingProps = {
   voteAverage: number
-}) => {
-  
+  variant?: 'primary' | 'secondary'
+  className?: string
+}
+
+const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) => {
   const percentage = Math.round(((voteAverage ?? 0) / 10) * 100);
   const size = 100;
   const strokeWidth = 8;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = `${(percentage / 100) * circumference} ${circumference}`;
+
+  const primary = 'hidden group-hover:block absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
+
   return (
-    <div className="hidden group-hover:block absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-filter backdrop-blur-[3px] bg-black/30">
+    <div className={`rounded-full backdrop-filter backdrop-blur-[3px] bg-mauve1/20 
+      ${variant === 'primary' && primary} ${className}`}
+    >
       <svg
-        className="w-28 md:w-36"
+        className={variant === 'primary' ? 'w-24 sm:w-28 md:w-32 xl:w-36' : 'w-[85px] xl:w-28 2xl:w-32'}
         viewBox={`0 0 ${size} ${size}`}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -38,8 +46,14 @@ const Rating = ({ voteAverage }: {
         />
       </svg>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-end">
-        <span className="text-[#FFE000] font-bold text-3xl md:text-4xl">{percentage}</span>
-        <span className="text-white font-bold text-xl md:text-2xl">%</span>
+        <span
+          className={`text-[#FFE000] font-bold  
+            ${variant === 'secondary' ? 'text-xl xl:text-3xl' : 'text-3xl md:text-4xl'}`
+          }>
+          {percentage}
+        </span>
+        <span className={`text-mauve12 font-bold  
+            ${variant === 'secondary' ? 'text-base xl:text-xl' : 'text-xl md:text-2xl'}`}>%</span>
       </div>
     </div>
   )

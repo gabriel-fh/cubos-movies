@@ -8,14 +8,12 @@ import {
 import { useFilter } from "@/contexts/Filters"
 import { SORT_BY_OPTIONS } from "@/utils/constants"
 // import { Icon } from "@iconify/react/dist/iconify.js"
-import { useState } from "react"
 
 const Ordenate = () => {
   const { setValue, watch } = useFilter()
-  const [currentValue, setCurrentValue] = useState<string>(watch('sort_by'))
+  const currentValue = watch('sort_by') || SORT_BY_OPTIONS[0].value
 
   const handleValueChange = (value: string) => {
-    setCurrentValue(value)
     setValue('sort_by', value)
   };
 

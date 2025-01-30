@@ -7,33 +7,26 @@ type PaginetedResponse<T> = {
 
 type Movie = {
   id: number;
-  backdrop_path: string;
   genre_ids: number[];
-  original_title: string;
-  overview: string;
-  popularity: number;
   poster_path: string;
-  release_date: string;
   title: string;
-  video: boolean;
   vote_average: number;
-  vote_count: number;
 };
 
 type Genre = {
   id: number;
   name: string;
-}
+};
 
 type GenreResponse = {
   genres: Genre[];
-}
+};
 
 type Lang = {
   iso_639_1: string;
   english_name: string;
   name: string;
-}
+};
 
 type Filter = {
   sort_by: string;
@@ -41,4 +34,34 @@ type Filter = {
   with_original_language: string;
   vote_average_gte?: number;
   vote_average_lte?: number;
-}
+};
+
+type Video = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  type: "Trailer" | "Teaser";
+  official: true;
+};
+
+type MovieInfo = {
+  backdrop_path: string;
+  original_title: string;
+  popularity: number;
+  video: boolean;
+  vote_count: number;
+  genres: Genre[];
+  overview: string;
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  tagline: string;
+  status: string;
+  budget: number;
+  original_language: string;
+  videos: {
+    results: Video[];
+  };
+} & Movie;
+
