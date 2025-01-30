@@ -20,20 +20,19 @@ const VoteAverage = () => {
           min={0}
           max={10}
           step={1}
-          defaultValue={currentValue}
+          defaultValue={[0, 10]}
           className='bg-mauve2 cursor-pointer'
           value={currentValue}
           onValueChange={handleChange}
-
         />
         <div className="flex w-full justify-between border-t">
           {Array.from({ length: 11 }).map((_, idx) => (
             <div
-              className="relative -z-[1] flex translate-x-[3px] flex-col items-center"
               key={idx}
+              className="relative translate-x-[3px] -z-[1] flex flex-col items-center"
             >
-              <div className="h-[4px] w-[1px] bg-mauve3 " />
-              <div className="text-xs">{idx}</div>
+              <div className="bg-mauve4 w-[1.5px] h-[5px]" />
+              <div className="text-xs text-mauve12">{idx}</div>
             </div>
           ))}
         </div>
