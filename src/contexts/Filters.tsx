@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useState, useEffect, useMemo, useCallback } from "react";
+import { createContext, useContext, ReactNode, useState, useCallback } from "react";
 import { useSearchParams } from "react-router";
 import {
   useForm,
@@ -33,25 +33,17 @@ type FilterProviderProps = {
 
 
 export const FilterProvider = ({ children }: FilterProviderProps) => {
-  const { handleSubmit, setValue, watch, register, reset, getValues } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const initialFilters: Filter = useMemo(() => ({
+  const initialFilters: Filter = {
     sort_by: searchParams.get("sort_by") || 'popularity.desc',
     with_genres: searchParams.get("with_genres") || '',
     with_original_language: searchParams.get("with_original_language") || '',
     vote_average_gte: Number(searchParams.get("vote_average_gte")) || 0,
     vote_average_lte: Number(searchParams.get("vote_average_lte")) || 10,
-  }), [searchParams]);
+  };
+  const { handleSubmit, setValue, watch, register, reset, getValues } = useForm<Filter>({ defaultValues: initialFilters });
 
   const [filters, setFilters] = useState<Filter>(initialFilters);
-
-  useEffect(() => {
-    Object.entries(filters).forEach(([key, value]) => {
-      register(key as keyof Filter, { value });
-    });
-  }, [register, initialFilters]);
-
 
   const setUrlParams = useCallback(async (data: Filter) => {
     setSearchParams((prevParams) => {
@@ -69,11 +61,10 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
     });
   }, [setSearchParams]);
 
-  const clearFilters = () => {
-    setFilters(initialFilters);
-    reset(initialFilters);
-    return;
-  }
+  const clearFilters = useCallback(() => {
+    setFilters(initialFilters)
+    reset(initialFilters)
+  }, [initialFilters, reset, setFilters])
 
   return (
     <FilterContext.Provider

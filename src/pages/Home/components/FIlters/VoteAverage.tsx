@@ -2,10 +2,10 @@ import { Slider } from '@/components/ui/slider'
 import { useFilter } from '@/contexts/Filters';
 
 const VoteAverage = () => {
-  const { watch, setValue} = useFilter()
-  const voteAvGte = watch('vote_average_gte');
-  const voteAvLte = watch('vote_average_lte');
-  const currentValue = [Number(voteAvGte) ?? 0, Number(voteAvLte) ?? 10];
+  const { watch, setValue } = useFilter()
+  const voteAvGte = Number(watch('vote_average_gte'));
+  const voteAvLte = Number(watch('vote_average_lte'));
+  const currentValue = [isNaN(voteAvGte) ? 0 : voteAvGte, isNaN(voteAvLte) ? 10 : voteAvLte];
 
   const handleChange = (newValue: number[]) => {
     setValue('vote_average_gte', newValue[0]);

@@ -25,11 +25,16 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
   }
 
   const cancel = () => {
-    close()
+    setTimeout(() => {
+      if (ref.current) {
+        ref.current.click()
+      }
+    }, 50)
     reset(filters)
   }
 
   const handleClick = useCallback(async (data: Filter) => {
+    console.log('save')
     await setFilters(data);
     await setUrlParams(data);
     clearInput(true);
