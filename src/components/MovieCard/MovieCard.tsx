@@ -19,7 +19,7 @@ const MovieCard = ({ movie, genresData }: MovieCardProps) => {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <figure className={`relative rounded-md bg-mauve5 overflow-hidden group before:w-full before:h-full before:absolute before:top-0 before:left-0 before:transparent  before:bg-gradient-to-b before:from-transparent before:to-black before:via-transparent aspect-[2/3] border border-mauve5 ${!movie.poster_path && 'flex items-center justify-center'}`}>
+      <figure className={`relative rounded-md bg-mauve5 overflow-hidden group before:w-full before:h-full before:absolute before:top-0 before:left-0 before:transparent before:bg-gradient-to-b before:from-transparent before:to-black before:via-transparent aspect-[2/3] border border-mauve5 ${!movie.poster_path && 'flex items-center justify-center'}`}>
         {movie.poster_path ? (
           <img src={IMG_BASE_URL + movie.poster_path}
             alt={movie.title}

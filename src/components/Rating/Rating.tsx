@@ -15,7 +15,7 @@ const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) =>
   const primary = 'hidden group-hover:block absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
 
   return (
-    <div className={`rounded-full backdrop-filter backdrop-blur-[3px] bg-black/30 
+    <div className={`rounded-full backdrop-filter backdrop-blur-[3px] bg-mauve1/20 
       ${variant === 'primary' && primary} ${className}`}
     >
       <svg

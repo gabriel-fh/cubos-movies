@@ -17,17 +17,19 @@ const Card = ({ title, value, className, variant = 'primary' }: CardProps) => {
       {!isGenre ? (
         <span
           className={`text-sm xl:text-base text-mauve12 ${variant === 'secondary' ?
-            'font-semibold  text-left' : 'text-mauve12 font-normal'}
+            'font-semibold  text-left' : 'font-normal'}
         `}>
-          {value}
+          {value || 'N/A'}
         </span>
       ) : (
         <div className='flex flex-wrap gap-2 mt-2'>
-          {value.map((genre, index) => (
+          {value.length > 0 ? value.map((genre, index) => (
             <Badge key={index} tabIndex={0} className="bg-purplea3 text-mauve12 text-xs xl:text-sm font-semibold rounded-sm uppercase">
               {genre.name}
             </Badge>
-          ))}
+          )) : (
+            <span className="text-mauve12 font-normal">N/A</span>
+          )}
         </div>
       )}
     </div>
