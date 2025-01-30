@@ -33,10 +33,8 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
     await setFilters(data);
     await setUrlParams(data);
     clearInput(true);
-    setTimeout(() => {
-      close()
-    }, 10) //gambiarra
-  }, [setFilters, setUrlParams, clearInput]);
+    close()
+  }, [setFilters, setUrlParams, clearInput, close]);
 
   const FormFilter = () => {
     return (

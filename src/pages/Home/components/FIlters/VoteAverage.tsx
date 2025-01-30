@@ -1,14 +1,13 @@
 import { Slider } from '@/components/ui/slider'
 import { useFilter } from '@/contexts/Filters';
-import { useState } from 'react';
 
 const VoteAverage = () => {
   const { watch, setValue} = useFilter()
-  const arr = [Number(watch('vote_average_gte')) ?? 0, Number(watch('vote_average_lte')) ?? 10];
-  const [currentValue, setCurrentValue] = useState<number[]>(arr);
+  const voteAvGte = watch('vote_average_gte');
+  const voteAvLte = watch('vote_average_lte');
+  const currentValue = [Number(voteAvGte) ?? 0, Number(voteAvLte) ?? 10];
 
   const handleChange = (newValue: number[]) => {
-    setCurrentValue(newValue);
     setValue('vote_average_gte', newValue[0]);
     setValue('vote_average_lte', newValue[1]);
   };
@@ -21,10 +20,11 @@ const VoteAverage = () => {
           min={0}
           max={10}
           step={1}
-          defaultValue={arr}
+          defaultValue={currentValue}
           className='bg-mauve2 cursor-pointer'
           value={currentValue}
           onValueChange={handleChange}
+
         />
         <div className="flex w-full justify-between border-t">
           {Array.from({ length: 11 }).map((_, idx) => (

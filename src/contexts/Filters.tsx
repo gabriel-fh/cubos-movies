@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useState, useEffect, useMemo } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router";
 import {
   useForm,
@@ -7,6 +7,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormReset,
+  UseFormGetValues,
 } from "react-hook-form"
 
 const FilterContext = createContext<FilterData>({} as FilterData);
@@ -22,6 +23,8 @@ type FilterData = {
   setUrlParams: (data: Filter) => void;
   register: UseFormRegister<Filter>
   reset: UseFormReset<Filter>
+  getValues: UseFormGetValues<Filter>
+
 }
 
 type FilterProviderProps = {
@@ -30,7 +33,7 @@ type FilterProviderProps = {
 
 
 export const FilterProvider = ({ children }: FilterProviderProps) => {
-  const { handleSubmit, setValue, watch, register, reset } = useForm<Filter>();
+  const { handleSubmit, setValue, watch, register, reset, getValues } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialFilters: Filter = useMemo(() => ({
@@ -47,10 +50,10 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
     Object.entries(filters).forEach(([key, value]) => {
       register(key as keyof Filter, { value });
     });
-  }, [register, initialFilters, filters]);
+  }, [register, initialFilters]);
 
 
-  const setUrlParams = async (data: Filter) => {
+  const setUrlParams = useCallback(async (data: Filter) => {
     setSearchParams((prevParams) => {
       const updatedParams = new URLSearchParams(prevParams);
       updatedParams.delete("page");
@@ -64,7 +67,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       });
       return updatedParams;
     });
-  }
+  }, [setSearchParams]);
 
   const clearFilters = () => {
     setFilters(initialFilters);
@@ -84,7 +87,8 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
         setValue,
         register,
         setUrlParams,
-        reset
+        reset,
+        getValues,
       }}
     >
       {children}
