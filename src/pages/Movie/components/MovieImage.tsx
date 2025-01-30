@@ -15,7 +15,7 @@ const MovieImage = ({ title, posterUrl }: MovieImageProps) => {
         <img
           src={posterImageUrl}
           alt={title}
-          className=""
+          className="aspect-[2/3]"
         />
       ) : (
         <Icon icon={'circum:image-off'} className="text-mauve10 text-7xl" />

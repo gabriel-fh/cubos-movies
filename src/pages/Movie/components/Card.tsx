@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 type CardProps = {
   title: string;
-  value: string | number | Genre[];
+  value?: string | number | Genre[];
   className?: string;
   variant?: 'primary' | 'secondary';
 }
@@ -28,7 +28,7 @@ const Card = ({ title, value, className, variant = 'primary' }: CardProps) => {
           className={`text-sm xl:text-base text-mauve12 ${variant === 'secondary' ?
             'font-semibold  text-left' : 'font-normal'}
         `}>
-          {value || 'N/A'}
+          {value === '$0' || !value ? 'N/A' : value}
         </span>
       ) : (
         <div className='flex flex-wrap gap-2 mt-2'>

@@ -10,3 +10,17 @@ export const SORT_BY_OPTIONS = [
   { label: "Mais Novos", value: "primary_release_date.desc" },
   { label: "Mais Antigos", value: "primary_release_date.asc" },
 ];
+
+export const MOVIE_STATUS: { [key: string]: string } = {
+  Released: "Lançado",
+  "Returning Series": "Renovada",
+  "In Production": "Em produção",
+  "Pre-Production": "Pré-produção",
+  "Post Production": "Pós-produção",
+  Announced: "Anunciado",
+  Canceled: "Cancelado",
+  Rumored: "Rumorado",
+  Planned: "Planejado",
+  "Awaiting Release": "Aguardando lançamento",
+  Ended: "Finalizado",
+};
