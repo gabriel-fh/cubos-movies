@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <header id="header" className="relative flex items-center justify-between p-4 border-b-2 border-b-mauvea6">
-      <div className="absolute -z-10 -top-32 left-0 w-full min-h-screen bg-[url(backgropund-krists-luhaers-unsplash.png)]
+      <div className="absolute -z-10 -top-32 left-0 w-full min-h-screen bg-[url(/backgropund-krists-luhaers-unsplash.png)]
             bg-no-repeat bg-cover bg-center before:w-full before:h-full before:absolute before:top-0 before:left-0 
             before:bg-gradient-to-b before:from-mauve1 before:to-background before:via-mauve1/90"
       />

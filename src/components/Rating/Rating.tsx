@@ -19,7 +19,7 @@ const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) =>
       ${variant === 'primary' && primary} ${className}`}
     >
       <svg
-        className={variant === 'primary' ? 'w-24 sm:w-28 md:w-32 xl:w-36' : 'w-[85px]'}
+        className={variant === 'primary' ? 'w-24 sm:w-28 md:w-32 xl:w-36' : 'w-[85px] xl:w-28'}
         viewBox={`0 0 ${size} ${size}`}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -47,12 +47,13 @@ const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) =>
       </svg>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-end">
         <span
-          className={`text-[#FFE000] font-bold text-3xl md:text-4xl 
-            ${variant === 'secondary' && 'text-xl'}`
+          className={`text-[#FFE000] font-bold  
+            ${variant === 'secondary' ? 'text-xl xl:text-3xl' : 'text-3xl md:text-4xl'}`
           }>
           {percentage}
         </span>
-        <span className={`text-white font-bold text-xl md:text-2xl ${variant === 'secondary' && '!text-base'}`}>%</span>
+        <span className={`text-white font-bold  
+            ${variant === 'secondary' ? 'text-base xl:text-xl' : 'text-xl md:text-2xl'}`}>%</span>
       </div>
     </div>
   )
