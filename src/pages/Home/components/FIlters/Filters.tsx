@@ -10,12 +10,11 @@ import { useResize } from '@/hooks/useResize';
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 
 type FiltersProps = {
-  genresData: GenreResponse | undefined;
   clearInput: (isFilter?: boolean) => void;
 }
 
-const Filters = ({ genresData, clearInput }: FiltersProps) => {
-  const { filters, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
+const Filters = ({ clearInput }: FiltersProps) => {
+  const { filters, genresData, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
   const { isTablet } = useResize();
   const close = () => {
@@ -49,7 +48,7 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
             )}
           </div>
           <Ordenate />
-          {genresData?.genres && <Genres genres={genresData.genres} />}
+          {genresData && genresData.length && <Genres genres={genresData} />}
           <Lang />
           <VoteAverage />
           <div className="flex gap-4 w-full mt-4">

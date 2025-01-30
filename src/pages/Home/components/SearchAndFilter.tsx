@@ -8,10 +8,9 @@ import { useResize } from "@/hooks/useResize";
 
 type SearchAndFilterProps = {
   inputValue: string
-  genresData: GenreResponse | undefined;
   onChange: (e: React.ChangeEvent<HTMLInputElement>, isFilter?: boolean) => Promise<void>;
 }
-const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterProps) => {
+const SearchAndFilter = ({ inputValue, onChange }: SearchAndFilterProps) => {
   const ref = useRef<HTMLButtonElement>(null);
   const { isTablet } = useResize()
   const handleClick = () => {
@@ -61,7 +60,6 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
           <Drawer.Root>
             <Drawer.Trigger ref={ref} className="hidden" />
             <Filters
-              genresData={genresData}
               clearInput={clearInput}
             />
           </Drawer.Root>
@@ -69,7 +67,6 @@ const SearchAndFilter = ({ inputValue, genresData, onChange }: SearchAndFilterPr
           <Sheet>
             <SheetTrigger ref={ref} className="hidden" />
             <Filters
-              genresData={genresData}
               clearInput={clearInput}
             />
           </Sheet>

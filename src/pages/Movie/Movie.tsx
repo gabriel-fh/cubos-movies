@@ -17,7 +17,7 @@ const Movie = () => {
   const backdropImageUrl = backdrop_path ? `${IMG_BASE_URL}${backdrop_path}` : '';
   const trailerId = getTrailerId(data.videos.results);
   return (
-    <main className="relative p-4">
+    <main className="relative p-4 xl:p-8">
       <section className="w-full relative grid grid-cols-1 gap-4 md:px-2 md:py-4 xl:p-8 md:grid-cols-2 
         lg:grid-cols-[repeat(3,1fr)] xl:grid-cols-7 xl:gap-x-8">
         <div

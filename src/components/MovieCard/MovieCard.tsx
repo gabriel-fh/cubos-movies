@@ -5,12 +5,12 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 type MovieCardProps = {
   movie: Movie;
-  genresData: GenreResponse | undefined;
+  genresData: Genre[] | undefined;
 }
 
 const MovieCard = ({ movie, genresData }: MovieCardProps) => {
 
-  const genres = genresData?.genres.reduce((acc, genre) => {
+  const genres = genresData?.reduce((acc, genre) => {
     if (movie?.genre_ids?.includes(genre.id)) {
       acc.push(genre.name);
     }

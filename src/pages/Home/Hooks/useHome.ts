@@ -1,12 +1,11 @@
 import { useSearchParams } from "react-router";
 import { useFetchMovies } from "../../../hooks/useFetchMovies";
 import { useCallback, useEffect, useState } from "react";
-import { useFetchGenres } from "@/hooks/useFetchGenres";
 import { useFetchSearch } from "@/hooks/useFetchSearch";
 import { useFilter } from "@/contexts/Filters";
 
 export const useHome = () => {
-  const { filters, clearFilters } = useFilter();
+  const { filters, genresData, clearFilters } = useFilter();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
   const currentPage = searchParams.get("page") || "1";
@@ -14,7 +13,6 @@ export const useHome = () => {
   const [inputValue, setInputValue] = useState<string>(query || "");
 
   const { data: discoverData, isLoading: discoverLoading } = useFetchMovies(page, filters);
-  const { data: genresData } = useFetchGenres();
   const { data: searchData, isLoading: searchLoading } = useFetchSearch(inputValue, page);
 
   const isSearch = inputValue.trim().length > 0;

@@ -12,7 +12,6 @@ const Home = () => {
       <SearchAndFilter
         inputValue={inputValue}
         onChange={onChange}
-        genresData={genresData}
       />
 
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 lg:bg-mauvea3 p-4 lg:p-6 lg:rounded-md
