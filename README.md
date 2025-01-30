@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# Cubos Movies
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Repositório dedicado ao Desafio Técnico Web - Processo Seletivo da Cubos
 
-Currently, two official plugins are available:
+Este projeto tem como objetivo o desenvolvimento de um aplicativo web responsivo que consome a API do TMDB (The Movie Database). O aplicativo permite aos usuários pesquisar filmes, visualizar detalhes sobre cada um e oferece uma experiência funcional e intuitiva.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Usadas
 
-## Expanding the ESLint configuration
+- **React JS**
+- **TypeScript**
+- **TailwindCSS**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Descrição do Desenvolvimento
 
-- Configure the top-level `parserOptions` property like this:
+Para o desenvolvimento, foi seguido o design do Figma o mais fiel possível. Contudo, algumas pequenas mudanças foram feitas, buscando melhorar a experiência do usuário e otimizar o layout, especialmente devido à limitação de tempo durante o processo.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Funcionalidades Implementadas
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Pesquisa por filmes, com exibição de resultados baseados em filtros.
+- Exibição de detalhes completos sobre os filmes.
+- Interface responsiva, garantindo uma boa experiência tanto em desktop quanto em dispositivos móveis.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Funcionalidades Faltantes
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Devido a limitações de tempo, algumas funcionalidades ficaram de fora:
+
+- **Página de "Not Found"**: Caso o usuário altere a URL diretamente, uma página de erro adequada não foi implementada.
+- **Limpeza de Filtros**: A opção para limpar todos os filtros aplicados não foi implementada.
+- **Correção de Bug Pequeno nos Filtros**: Existe um pequeno bug que pode ocorrer de forma intermitente ao aplicar filtros. No entanto, isso não compromete a usabilidade do aplicativo.
+
+## Instruções de Uso
+
+Para rodar o projeto localmente, siga as instruções abaixo:
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/gabriel-fh/cubos-movies.git
+   cd cubos-movies
+
+2. Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis de ambiente:
+    
+   ```bash
+   VITE_API_URL=https://api.themoviedb.org/3
+   VITE_API_KEY=sua_chave_de_api
+
+3. Instale as dependências:
+    
+   ```bash
+   npm install
+
+4. Inicie o projeto:
+   
+   ```bash
+   npm run dev
+
+## Agradecimentos
+
+Gostaria de agradecer à **Cubos Tecnologia** pela oportunidade de participar do processo seletivo e deste desafio técnico.
+
+
+
+  
