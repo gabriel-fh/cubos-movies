@@ -1,11 +1,10 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useFilter } from '@/contexts/Filters';
-import { useFetchLang } from '@/hooks/useFetchLang';
+import { getLanguageName } from '@/utils/util';
 import { useState } from 'react'
 
 const Lang = () => {
-  const { data } = useFetchLang();
-  const { setValue, watch } = useFilter()
+  const { langData, setValue, watch } = useFilter()
   const [currentValue, setCurrentValue] = useState<string>(watch('with_original_language'))
 
   const handleValueChange = (value: string) => {
@@ -13,15 +12,11 @@ const Lang = () => {
     setValue('with_original_language', value)
   };
 
-  const getLangName = (langCode: string) => {
-    const language = new Intl.DisplayNames(['pt-BR'], { type: 'language' });
-    return language.of(langCode);
-  };
 
-  if (!data) return null;
+  if (!langData) return null;
 
   return (
-    data && (
+    langData && (
       <div>
         <h3 className="text-mauve12 font-medium">Idioma de origem</h3>
         <Select value={currentValue} onValueChange={handleValueChange}>
@@ -29,17 +24,17 @@ const Lang = () => {
             <SelectValue placeholder={'Selecione um idioma'} className='selectPlaceholder' />
           </SelectTrigger>
           <SelectContent className='bg-mauve2' >
-            {data.map((lang) => {
-              let langName = getLangName(lang.iso_639_1);
-              langName = !langName ? lang.iso_639_1 : langName;
-              langName = langName === lang.iso_639_1 ? lang.english_name : langName
-              return (
-                <SelectItem key={lang.iso_639_1} value={lang.iso_639_1} className='cursor-pointer' >
-                  <span>
-                    {langName.charAt(0).toUpperCase() + langName.slice(1)}
-                  </span>
-                </SelectItem>
-              )
+            {langData.map((lang) => {
+              if (lang.iso_639_1) {
+                return (
+                  <SelectItem key={lang.iso_639_1} value={lang.iso_639_1} className="cursor-pointer">
+                    <span>
+                      {getLanguageName(lang.iso_639_1, lang.english_name)}
+                    </span>
+                  </SelectItem>
+                );
+              }
+              return null;
             })}
           </SelectContent>
         </Select>

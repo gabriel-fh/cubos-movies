@@ -75,14 +75,12 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
         </Drawer.Content>
       </Drawer.Portal>
     ) : (
-      // <SheetOverlay>
       <SheetContent onClose={cancel}>
         <SheetHeader >
           <SheetTitle className="font-semibold text-mauve12 text-base">Encontre o que você procura</SheetTitle>
         </SheetHeader>
         <FormFilter />
       </SheetContent>
-      // {/* </SheetOverlay> */}
     )
   );
 };

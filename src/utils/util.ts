@@ -18,3 +18,10 @@ export const getUSDFormat = (value: number): string => {
     notation: "compact",
   }).format(value);
 };
+
+export const getLanguageName = (langCode: string, englishName?: string) => {
+  const language = new Intl.DisplayNames(['pt-BR'], { type: 'language' });
+  const languageName = language.of(langCode) || langCode;
+  const finalLanguageName = ((languageName === langCode) && englishName) ? englishName : languageName;
+  return finalLanguageName.charAt(0).toLocaleUpperCase() + finalLanguageName.slice(1);
+};

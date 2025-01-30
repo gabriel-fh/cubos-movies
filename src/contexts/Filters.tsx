@@ -1,12 +1,14 @@
 import { createContext, useContext, ReactNode, useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { useForm, UseFormWatch, UseFormSetValue, UseFormHandleSubmit, UseFormRegister, UseFormReset, } from "react-hook-form"
+import { useFetchLang } from "@/hooks/useFetchLang";
 
 const FilterContext = createContext<FilterData>({} as FilterData);
 
 type FilterData = {
   filters: Filter;
   initialFilters: Filter;
+  langData: Lang[] | undefined;
   setFilters: React.Dispatch<React.SetStateAction<Filter>>;
   clearFilters: () => void;
   handleSubmit: UseFormHandleSubmit<Filter, undefined>;
@@ -23,6 +25,7 @@ type FilterProviderProps = {
 
 
 export const FilterProvider = ({ children }: FilterProviderProps) => {
+  const { data: langData } = useFetchLang();
   const { handleSubmit, setValue, watch, register, reset } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -70,6 +73,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       value={{
         initialFilters,
         filters,
+        langData,
         setFilters,
         clearFilters,
         handleSubmit,
