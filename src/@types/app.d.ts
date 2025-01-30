@@ -16,17 +16,17 @@ type Movie = {
 type Genre = {
   id: number;
   name: string;
-}
+};
 
 type GenreResponse = {
   genres: Genre[];
-}
+};
 
 type Lang = {
   iso_639_1: string;
   english_name: string;
   name: string;
-}
+};
 
 type Filter = {
   sort_by: string;
@@ -34,7 +34,16 @@ type Filter = {
   with_original_language: string;
   vote_average_gte?: number;
   vote_average_lte?: number;
-}
+};
+
+type Video = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  type: "Trailer" | "Teaser";
+  official: true;
+};
 
 type MovieInfo = {
   backdrop_path: string;
@@ -51,4 +60,8 @@ type MovieInfo = {
   status: string;
   budget: number;
   original_language: string;
+  videos: {
+    results: Video[];
+  };
 } & Movie;
+

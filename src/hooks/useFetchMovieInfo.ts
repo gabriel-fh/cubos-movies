@@ -3,7 +3,11 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 const fetchData = async ({ queryKey }: QueryFunctionContext<[string, string]>): Promise<MovieInfo> => {
   const [_, id] = queryKey;
-  const response = await api.get<MovieInfo>(`movie/${id}`);
+  const response = await api.get<MovieInfo>(`movie/${id}`, {
+    params: {
+      append_to_response: "videos",
+    }
+  });
   return response.data;
 }
 

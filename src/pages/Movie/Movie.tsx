@@ -5,6 +5,7 @@ import Card from "./components/Card";
 import MovieImage from "./components/MovieImage";
 import TitleRating from "./components/TitleRating";
 import MovieInfo from "./components/MovieInfo";
+import { getTrailerId } from "@/utils/util";
 
 const Movie = () => {
   const { id = "" } = useParams();
@@ -14,7 +15,7 @@ const Movie = () => {
 
   const { backdrop_path } = data;
   const backdropImageUrl = backdrop_path ? `${IMG_BASE_URL}${backdrop_path}` : '';
-
+  const trailerId = getTrailerId(data.videos.results);
   return (
     <main className="relative p-4">
       <section className="w-full relative grid grid-cols-1 gap-4 md:px-2 md:py-4 xl:p-8 md:grid-cols-2 
@@ -46,6 +47,16 @@ const Movie = () => {
           budget={data.budget}
         />
       </section>
+      {trailerId && <section className="mt-4 md:px-2 xl:px-8">
+        <h2 className="text-mauve12 text-2xl xl:text-3xl font-semibold mb-2">Trailer</h2>
+        <iframe
+          title="Trailer"
+          className="w-full aspect-video rounded-sm"
+          src={`https://www.youtube.com/embed/${trailerId}`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </section>}
     </main>
   );
 };

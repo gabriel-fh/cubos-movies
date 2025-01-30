@@ -10,14 +10,15 @@ type CardProps = {
 }
 
 const Card = ({ title, value, className, variant = 'primary' }: CardProps) => {
-  const { setFilters, setValue } = useFilter()
-  const isGenre = value instanceof Array
-  const navigate = useNavigate()
+  const { setFilters, setValue } = useFilter();
+  const isGenre = value instanceof Array;
+  const navigate = useNavigate();
+  
   const onGereClick = (genreId: number) => {
-    setValue('with_genres', genreId.toString())
-    setFilters((prev) => ({ ...prev, with_genres: genreId.toString() }))
-    navigate(`/?with_genres=${genreId}`)
-    return
+    setValue('with_genres', genreId.toString());
+    setFilters((prev) => ({ ...prev, with_genres: genreId.toString() }));
+    navigate(`/?with_genres=${genreId}`);
+    return;
   }
 
   return (
@@ -25,9 +26,9 @@ const Card = ({ title, value, className, variant = 'primary' }: CardProps) => {
       <h3 className="text-mauve11 font-bold text-sm uppercase xl:text-base">{title}</h3>
       {!isGenre ? (
         <span
-          className={`text-sm xl:text-base text-mauve12 ${variant === 'secondary' ?
-            'font-semibold  text-left' : 'font-normal'}
-        `}>
+          className={`text-sm text-mauve12 
+            ${variant === 'secondary' ? 'font-bold  text-left' : 'font-normal'}
+            ${title !== 'Sinopse' && 'lg:font-bold'}`}>
           {value === '$0' || !value ? 'N/A' : value}
         </span>
       ) : (
