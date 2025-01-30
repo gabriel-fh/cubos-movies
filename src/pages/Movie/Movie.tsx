@@ -6,10 +6,11 @@ import MovieImage from "./components/MovieImage";
 import TitleRating from "./components/TitleRating";
 import MovieInfo from "./components/MovieInfo";
 import { getTrailerId } from "@/utils/util";
+import Skeleton from "./components/Skeleton";
 
 const Movie = () => {
   const { id = "" } = useParams();
-  const { data } = useFetchMovieInfo(id);
+  const { data, isLoading } = useFetchMovieInfo(id);
 
   if (!data) return <p>Loading...</p>;
 
@@ -25,29 +26,35 @@ const Movie = () => {
           before:w-full before:h-full before:absolute before:top-0 before:left-0 before:bg-gradient-to-r before:from-mauve1 before:to-mauve1/50 before:via-mauve1/90 rounded-sm"
           style={{ backgroundImage: `url(${backdropImageUrl})` }}
         />
-        <MovieImage title={data.title} posterUrl={data.poster_path} />
-        <TitleRating
-          title={data.title}
-          original_title={data.original_title}
-          tagline={data.tagline}
-          popularity={data.popularity}
-          vote_count={data.vote_count}
-          vote_average={data.vote_average}
-        />
-        <section className="md:col-start-2 md:row-start-2 xl:col-start-3 xl:col-span-2">
-          <Card title="Sinopse" value={data.overview} className="mb-4" />
-          <Card title="Gêneros" value={data.genres} />
-        </section>
-        <MovieInfo
-          release_date={data.release_date}
-          runtime={data.runtime}
-          status={data.status}
-          original_language={data.original_language}
-          revenue={data.revenue}
-          budget={data.budget}
-        />
+        {isLoading ? (
+          <Skeleton />
+        ) : (
+          <>
+            <MovieImage title={data.title} posterUrl={data.poster_path} />
+            <TitleRating
+              title={data.title}
+              original_title={data.original_title}
+              tagline={data.tagline}
+              popularity={data.popularity}
+              vote_count={data.vote_count}
+              vote_average={data.vote_average}
+            />
+            <section className="md:col-start-2 md:row-start-2 xl:col-start-3 xl:col-span-2">
+              <Card title="Sinopse" value={data.overview} className="mb-4" />
+              <Card title="Gêneros" value={data.genres} />
+            </section>
+            <MovieInfo
+              release_date={data.release_date}
+              runtime={data.runtime}
+              status={data.status}
+              original_language={data.original_language}
+              revenue={data.revenue}
+              budget={data.budget}
+            />
+          </>
+        )}
       </section>
-      {trailerId && <section className="mt-4 md:px-2 xl:px-8">
+      {trailerId && !isLoading && <section className="mt-4 md:px-2 xl:px-8">
         <h2 className="text-mauve12 text-2xl xl:text-3xl font-semibold mb-2">Trailer</h2>
         <iframe
           title="Trailer"

@@ -52,7 +52,7 @@ const Rating = ({ voteAverage, variant = 'primary', className }: RatingProps) =>
           }>
           {percentage}
         </span>
-        <span className={`text-white font-bold  
+        <span className={`text-mauve12 font-bold  
             ${variant === 'secondary' ? 'text-base xl:text-xl' : 'text-xl md:text-2xl'}`}>%</span>
       </div>
     </div>

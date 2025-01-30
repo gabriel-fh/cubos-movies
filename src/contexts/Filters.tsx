@@ -1,8 +1,13 @@
 import { createContext, useContext, ReactNode, useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router";
-import { useForm, UseFormWatch, UseFormSetValue, UseFormHandleSubmit, UseFormRegister, UseFormReset, } from "react-hook-form"
-import { useFetchLang } from "@/hooks/useFetchLang";
-import { useFetchGenres } from "@/hooks/useFetchGenres";
+import {
+  useForm,
+  UseFormWatch,
+  UseFormSetValue,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormReset,
+} from "react-hook-form"
 
 const FilterContext = createContext<FilterData>({} as FilterData);
 
