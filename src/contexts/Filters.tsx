@@ -50,7 +50,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   }, [register, initialFilters, filters]);
 
 
-  const setUrlParams = (data: Filter) => {
+  const setUrlParams = async (data: Filter) => {
     setSearchParams((prevParams) => {
       const updatedParams = new URLSearchParams(prevParams);
       updatedParams.delete("page");

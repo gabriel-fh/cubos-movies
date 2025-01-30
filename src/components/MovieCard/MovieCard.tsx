@@ -24,6 +24,7 @@ const MovieCard = ({ movie, genresData }: MovieCardProps) => {
           <img src={IMG_BASE_URL + movie.poster_path}
             alt={movie.title}
             className="aspect-[2/3] rounded-sm"
+            loading="lazy"
           />
         ) : (
           <Icon icon={'circum:image-off'} className="text-mauve10 text-7xl" />

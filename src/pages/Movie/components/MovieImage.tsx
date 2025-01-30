@@ -16,6 +16,7 @@ const MovieImage = ({ title, posterUrl }: MovieImageProps) => {
           src={posterImageUrl}
           alt={title}
           className="aspect-[2/3]"
+          loading='lazy'
         />
       ) : (
         <Icon icon={'circum:image-off'} className="text-mauve10 text-7xl" />
