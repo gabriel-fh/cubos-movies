@@ -5,11 +5,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 
 const Header = () => {
-
-  const [isDark, setIsDark] = useState(true);
+  const savedTheme = localStorage.getItem('theme');
+  const [isDark, setIsDark] = useState(savedTheme === 'dark' || !savedTheme); 
 
   const toggleTheme = () => {
+    const newTheme = !isDark ? 'dark' : 'light';
     setIsDark(!isDark);
+
+    localStorage.setItem('theme', newTheme);
   };
 
   useEffect(() => {
@@ -36,7 +39,7 @@ const Header = () => {
         <Icon icon="eva:sun-fill" className="text-mauve12 text-2xl" />
       </Button>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
