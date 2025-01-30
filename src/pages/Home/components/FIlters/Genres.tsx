@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { useFilter } from '@/contexts/Filters'
 
@@ -7,7 +7,7 @@ const Genres = ({ genres }: { genres: Genre[] }) => {
   const currentFilters = watch('with_genres') ? watch('with_genres').split(',').map(item => parseInt(item)) : []
   const [selectedGenres, setSelectedGenres] = useState<number[]>(currentFilters)
 
-  const handleClick = (value: number) => {
+  const handleClick = useCallback((value: number) => {
     setSelectedGenres((prevSelected) => {
       const updatedSelectedGenres = prevSelected.includes(value)
         ? prevSelected.filter((genreId) => genreId !== value)
@@ -15,8 +15,8 @@ const Genres = ({ genres }: { genres: Genre[] }) => {
       setValue('with_genres', updatedSelectedGenres.join(','));
       return updatedSelectedGenres;
     });
-  }
-
+  }, [setValue, selectedGenres]); 
+  
   return (
     <div>
       <h3 className="text-mauve12 font-medium">Gêneros</h3>

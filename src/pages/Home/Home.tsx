@@ -5,13 +5,14 @@ import Pagination from "@/components/Pagination";
 import { useHome } from "./Hooks/useHome";
 
 const Home = () => {
-  const { data, isLoading, genresData, page, inputValue, changePage, onChange } = useHome();
+  const { data, isLoading, genreResponse, page, inputValue, changePage, onChange } = useHome();
 
   return (
     <main className="w-full min-h-screen lg:px-4">
       <SearchAndFilter
         inputValue={inputValue}
         onChange={onChange}
+        genresData={genreResponse}
       />
 
       <section className={`w-full min-h-[calc(100vh-10vh)] bg-mauve3 lg:bg-mauvea3 p-4 lg:p-6 lg:rounded-md
@@ -24,7 +25,7 @@ const Home = () => {
           <SearchNotFound searchValue={inputValue} />
         ) : (
           data?.results?.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} genresData={genresData} />
+            <MovieCard key={movie.id} movie={movie} genresData={genreResponse} />
           ))
         )}
 

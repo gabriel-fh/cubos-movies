@@ -3,9 +3,11 @@ import { useFetchMovies } from "../../../hooks/useFetchMovies";
 import { useCallback, useEffect, useState } from "react";
 import { useFetchSearch } from "@/hooks/useFetchSearch";
 import { useFilter } from "@/contexts/Filters";
+import { useFetchGenres } from "@/hooks/useFetchGenres";
 
 export const useHome = () => {
-  const { filters, genresData, clearFilters } = useFilter();
+  const { filters, clearFilters } = useFilter();
+  const { data: genreResponse } = useFetchGenres();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
   const currentPage = searchParams.get("page") || "1";
@@ -65,7 +67,7 @@ export const useHome = () => {
   return {
     data,
     isLoading,
-    genresData,
+    genreResponse,
     inputValue,
     page,
     onChange,

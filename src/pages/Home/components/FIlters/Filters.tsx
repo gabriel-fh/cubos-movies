@@ -2,7 +2,7 @@ import { Drawer } from 'vaul';
 import Button from '@/components/Button';
 import Ordenate from './Ordenate';
 import { useFilter } from '@/contexts/Filters';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import VoteAverage from './VoteAverage';
 import Lang from './Lang';
 import Genres from './Genres';
@@ -11,10 +11,11 @@ import { SheetClose, SheetContent, SheetHeader, SheetTitle } from '@/components/
 
 type FiltersProps = {
   clearInput: (isFilter?: boolean) => void;
+  genresData: GenreResponse | undefined;
 }
 
-const Filters = ({ clearInput }: FiltersProps) => {
-  const { filters, genresData, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
+const Filters = ({ genresData, clearInput }: FiltersProps) => {
+  const { filters, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
   const { isTablet } = useResize();
   const close = () => {
@@ -28,12 +29,12 @@ const Filters = ({ clearInput }: FiltersProps) => {
     reset(filters)
   }
 
-  const handleClick = async (data: Filter) => {
+  const handleClick = useCallback(async (data: Filter) => {
     await setFilters(data);
     await setUrlParams(data);
     clearInput(true);
     close();
-  };
+  }, [setFilters, setUrlParams, clearInput]);
 
   const FormFilter = () => {
     return (
@@ -48,7 +49,7 @@ const Filters = ({ clearInput }: FiltersProps) => {
             )}
           </div>
           <Ordenate />
-          {genresData && genresData.length && <Genres genres={genresData} />}
+          {genresData && genresData?.genres?.length && <Genres genres={genresData.genres} />}
           <Lang />
           <VoteAverage />
           <div className="flex gap-4 w-full mt-4">
@@ -85,3 +86,4 @@ const Filters = ({ clearInput }: FiltersProps) => {
 };
 
 export default Filters;
+

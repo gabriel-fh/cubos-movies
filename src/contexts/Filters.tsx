@@ -9,8 +9,6 @@ const FilterContext = createContext<FilterData>({} as FilterData);
 type FilterData = {
   filters: Filter;
   initialFilters: Filter;
-  langData: Lang[] | undefined;
-  genresData: Genre[] | undefined;
   setFilters: React.Dispatch<React.SetStateAction<Filter>>;
   clearFilters: () => void;
   handleSubmit: UseFormHandleSubmit<Filter, undefined>;
@@ -27,8 +25,6 @@ type FilterProviderProps = {
 
 
 export const FilterProvider = ({ children }: FilterProviderProps) => {
-  const { data: langData } = useFetchLang();
-  const { data: genreResponse } = useFetchGenres();
   const { handleSubmit, setValue, watch, register, reset } = useForm<Filter>();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -76,8 +72,6 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       value={{
         initialFilters,
         filters,
-        langData,
-        genresData: genreResponse?.genres,
         setFilters,
         clearFilters,
         handleSubmit,

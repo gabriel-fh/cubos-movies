@@ -1,17 +1,18 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useFilter } from '@/contexts/Filters';
+import { useFetchLang } from '@/hooks/useFetchLang';
 import { getLanguageName } from '@/utils/util';
 import { useState } from 'react'
 
 const Lang = () => {
-  const { langData, setValue, watch } = useFilter()
+  const { setValue, watch } = useFilter()
+  const { data: langData } = useFetchLang();
   const [currentValue, setCurrentValue] = useState<string>(watch('with_original_language'))
 
   const handleValueChange = (value: string) => {
     setCurrentValue(value)
     setValue('with_original_language', value)
   };
-
 
   if (!langData) return null;
 
