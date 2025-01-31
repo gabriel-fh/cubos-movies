@@ -5,7 +5,7 @@ import { useFilter } from '@/contexts/Filters'
 const Genres = ({ genres }: { genres: Genre[] }) => {
   const { setValue, watch } = useFilter()
   const currentFilters = watch('with_genres') ? watch('with_genres')?.split(',')?.map(item => parseInt(item)) : []
-
+  
   const handleClick = useCallback((value: number) => {
     const updatedSelectedGenres = currentFilters.includes(value)
       ? currentFilters.filter((genreId) => genreId !== value)
@@ -13,8 +13,6 @@ const Genres = ({ genres }: { genres: Genre[] }) => {
     setValue('with_genres', updatedSelectedGenres.join(','));
     return updatedSelectedGenres;
   }, [setValue, currentFilters]);
-
-  console.log(currentFilters)
 
   return (
     <div>

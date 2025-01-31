@@ -18,23 +18,21 @@ const Filters = ({ genresData, clearInput }: FiltersProps) => {
   const { filters, reset, setFilters, handleSubmit, setUrlParams } = useFilter();
   const ref = useRef<HTMLButtonElement>(null);
   const { isTablet } = useResize();
-  const close = () => {
-    if (ref.current) {
-      ref.current.click()
-    }
-  }
 
-  const cancel = () => {
+  const close = () => {
     setTimeout(() => {
       if (ref.current) {
         ref.current.click()
       }
-    }, 50)
+    }, 5)
+  }
+
+  const cancel = () => {
+    close()
     reset(filters)
   }
 
   const handleClick = useCallback(async (data: Filter) => {
-    console.log('save')
     await setFilters(data);
     await setUrlParams(data);
     clearInput(true);
